@@ -3,6 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useGameStore } from '../../stores/gameStore'
 import type { Viewpoint } from '../../types/navigation'
+import type { AreaId } from '../../types/game'
 
 interface CameraControllerProps {
   viewpoints: Viewpoint[]
@@ -19,12 +20,14 @@ export default function CameraController({
   const startLookAt = useRef(new THREE.Vector3())
   const targetPosition = useRef(new THREE.Vector3())
   const targetLookAt = useRef(new THREE.Vector3())
+  const targetAreaId = useRef<AreaId | null>(null)
 
   const currentViewpoint = useGameStore((state) => state.currentViewpoint)
   const targetViewpoint = useGameStore((state) => state.targetViewpoint)
   const isTransitioning = useGameStore((state) => state.isTransitioning)
   const completeTransition = useGameStore((state) => state.completeTransition)
   const setCurrentViewpoint = useGameStore((state) => state.setCurrentViewpoint)
+  const setCurrentArea = useGameStore((state) => state.setCurrentArea)
 
   // Find viewpoint by ID
   const findViewpoint = (id: string | null): Viewpoint | undefined => {
@@ -39,8 +42,9 @@ export default function CameraController({
       camera.position.set(startVp.position.x, startVp.position.y, startVp.position.z)
       camera.lookAt(startVp.lookAt.x, startVp.lookAt.y, startVp.lookAt.z)
       setCurrentViewpoint(startVp.id)
+      setCurrentArea(startVp.areaId as AreaId)
     }
-  }, [viewpoints, currentViewpoint, camera, setCurrentViewpoint])
+  }, [viewpoints, currentViewpoint, camera, setCurrentViewpoint, setCurrentArea])
 
   // Start transition when target changes
   useEffect(() => {
@@ -58,6 +62,7 @@ export default function CameraController({
         // Set target
         targetPosition.current.set(targetVp.position.x, targetVp.position.y, targetVp.position.z)
         targetLookAt.current.set(targetVp.lookAt.x, targetVp.lookAt.y, targetVp.lookAt.z)
+        targetAreaId.current = targetVp.areaId as AreaId
 
         // Reset progress
         transitionProgress.current = 0
@@ -75,6 +80,9 @@ export default function CameraController({
       // Transition complete
       camera.position.copy(targetPosition.current)
       camera.lookAt(targetLookAt.current)
+      if (targetAreaId.current) {
+        setCurrentArea(targetAreaId.current)
+      }
       completeTransition()
     } else {
       // Ease in-out interpolation

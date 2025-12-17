@@ -73,13 +73,6 @@
           "position": { "x": 0, "y": 0.5, "z": -2 },
           "label": "Go back",
           "icon": "arrow"
-        },
-        {
-          "id": "to-pipelines",
-          "targetViewpoint": "pipelines-entrance",
-          "position": { "x": 0, "y": 1, "z": -9 },
-          "label": "Enter the Pipelines",
-          "icon": "door"
         }
       ],
       "infoPoints": []
@@ -88,7 +81,7 @@
       "id": "hall-west",
       "areaId": "central-hall",
       "position": { "x": -6, "y": 1.6, "z": 0 },
-      "lookAt": { "x": -10, "y": 1.6, "z": 0 },
+      "lookAt": { "x": -15, "y": 1.6, "z": 0 },
       "hotspots": [
         {
           "id": "to-hall-center-from-west",
@@ -119,13 +112,6 @@
           "position": { "x": 2, "y": 0.5, "z": 0 },
           "label": "Go back",
           "icon": "arrow"
-        },
-        {
-          "id": "to-forge",
-          "targetViewpoint": "forge-entrance",
-          "position": { "x": 9, "y": 1, "z": 0 },
-          "label": "Enter the Forge",
-          "icon": "door"
         }
       ],
       "infoPoints": []
@@ -133,23 +119,82 @@
     {
       "id": "library-entrance",
       "areaId": "library",
-      "position": { "x": -15, "y": 1.6, "z": 0 },
-      "lookAt": { "x": -20, "y": 1.6, "z": 0 },
+      "position": { "x": -18, "y": 1.6, "z": 0 },
+      "lookAt": { "x": -28, "y": 1.5, "z": 0 },
       "hotspots": [
         {
           "id": "back-to-hall-from-library",
           "targetViewpoint": "hall-west",
-          "position": { "x": -11, "y": 1, "z": 0 },
+          "position": { "x": -12, "y": 1, "z": 0 },
           "label": "Return to Central Hall",
           "icon": "door"
+        },
+        {
+          "id": "to-library-center",
+          "targetViewpoint": "library-center",
+          "position": { "x": -23, "y": 0.5, "z": 0 },
+          "label": "Walk into the Library",
+          "icon": "arrow"
+        }
+      ],
+      "infoPoints": []
+    },
+    {
+      "id": "library-center",
+      "areaId": "library",
+      "position": { "x": -25, "y": 1.6, "z": 2 },
+      "lookAt": { "x": -30, "y": 1.6, "z": 0 },
+      "hotspots": [
+        {
+          "id": "to-library-entrance-from-center",
+          "targetViewpoint": "library-entrance",
+          "position": { "x": -20, "y": 0.5, "z": 0 },
+          "label": "Go to entrance",
+          "icon": "arrow"
+        },
+        {
+          "id": "to-library-shelves",
+          "targetViewpoint": "library-shelves",
+          "position": { "x": -30, "y": 0.5, "z": 0 },
+          "label": "Examine the shelves",
+          "icon": "arrow"
         }
       ],
       "infoPoints": [
         {
-          "id": "info-library",
+          "id": "info-library-overview",
           "contentId": "library",
-          "position": { "x": -18, "y": 2, "z": 0 },
+          "position": { "x": -25, "y": 2.2, "z": -2 },
           "label": "Documentation Skills"
+        }
+      ]
+    },
+    {
+      "id": "library-shelves",
+      "areaId": "library",
+      "position": { "x": -30, "y": 1.6, "z": 0 },
+      "lookAt": { "x": -32, "y": 1.8, "z": 0 },
+      "hotspots": [
+        {
+          "id": "to-library-center-from-shelves",
+          "targetViewpoint": "library-center",
+          "position": { "x": -26, "y": 0.5, "z": 0 },
+          "label": "Go back",
+          "icon": "arrow"
+        }
+      ],
+      "infoPoints": [
+        {
+          "id": "info-technical-writing",
+          "contentId": "technical-writing",
+          "position": { "x": -32, "y": 2, "z": -3 },
+          "label": "Technical Writing"
+        },
+        {
+          "id": "info-api-docs",
+          "contentId": "api-docs",
+          "position": { "x": -32, "y": 2, "z": 3 },
+          "label": "API Documentation"
         }
       ]
     }
