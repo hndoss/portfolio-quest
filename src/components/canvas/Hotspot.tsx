@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
 import { useGameStore } from '../../stores/gameStore'
 import type { Hotspot as HotspotType } from '../../types/navigation'
 
@@ -8,9 +10,25 @@ interface HotspotProps {
 
 export default function Hotspot({ hotspot }: HotspotProps) {
   const [hovered, setHovered] = useState(false)
+  const meshRef = useRef<THREE.Mesh>(null)
+  const ringRef = useRef<THREE.Mesh>(null)
   const navigateTo = useGameStore((state) => state.navigateTo)
   const setHoveredHotspot = useGameStore((state) => state.setHoveredHotspot)
   const isTransitioning = useGameStore((state) => state.isTransitioning)
+
+  // Pulsing animation
+  useFrame((state) => {
+    if (meshRef.current) {
+      const pulse = Math.sin(state.clock.elapsedTime * 2) * 0.1 + 1
+      meshRef.current.scale.setScalar(hovered ? 1.2 : pulse)
+    }
+    if (ringRef.current) {
+      const ringPulse = Math.sin(state.clock.elapsedTime * 3) * 0.5 + 0.5
+      ringRef.current.scale.setScalar(1 + ringPulse * 0.3)
+      const material = ringRef.current.material as THREE.MeshBasicMaterial
+      material.opacity = 0.3 + ringPulse * 0.4
+    }
+  })
 
   const handleClick = () => {
     if (!isTransitioning) {
@@ -21,21 +39,18 @@ export default function Hotspot({ hotspot }: HotspotProps) {
   const handlePointerOver = () => {
     setHovered(true)
     setHoveredHotspot(hotspot.id)
-    document.body.style.cursor = 'pointer'
   }
 
   const handlePointerOut = () => {
     setHovered(false)
     setHoveredHotspot(null)
-    document.body.style.cursor = 'default'
   }
 
   // Color based on icon type
   const getColor = () => {
-    if (hovered) return '#ffcc00'
     switch (hotspot.icon) {
       case 'door':
-        return '#8b4513'
+        return '#c9a227'
       case 'stairs':
         return '#708090'
       case 'arrow':
@@ -44,31 +59,46 @@ export default function Hotspot({ hotspot }: HotspotProps) {
     }
   }
 
+  const color = getColor()
+  const emissiveColor = hovered ? '#ffcc00' : color
+
   return (
     <group position={[hotspot.position.x, hotspot.position.y, hotspot.position.z]}>
-      {/* Clickable mesh */}
+      {/* Main orb */}
       <mesh
+        ref={meshRef}
         onClick={handleClick}
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
       >
-        <sphereGeometry args={[0.5, 16, 16]} />
+        <sphereGeometry args={[0.3, 24, 24]} />
         <meshStandardMaterial
-          color={getColor()}
-          emissive={hovered ? '#ffcc00' : '#000000'}
-          emissiveIntensity={hovered ? 0.5 : 0}
+          color={color}
+          emissive={emissiveColor}
+          emissiveIntensity={hovered ? 0.8 : 0.4}
           transparent
-          opacity={0.8}
+          opacity={0.9}
         />
       </mesh>
 
-      {/* Pulsing ring effect when hovered */}
-      {hovered && (
-        <mesh rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[0.6, 0.8, 32]} />
-          <meshBasicMaterial color="#ffcc00" transparent opacity={0.5} />
-        </mesh>
-      )}
+      {/* Outer glow ring */}
+      <mesh ref={ringRef} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[0.4, 0.6, 32]} />
+        <meshBasicMaterial
+          color={hovered ? '#ffcc00' : color}
+          transparent
+          opacity={0.5}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+
+      {/* Point light for glow effect */}
+      <pointLight
+        color={hovered ? '#ffcc00' : color}
+        intensity={hovered ? 2 : 0.5}
+        distance={3}
+        decay={2}
+      />
     </group>
   )
 }
