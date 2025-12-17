@@ -1,0 +1,157 @@
+{
+  "startViewpoint": "hall-entrance",
+  "viewpoints": [
+    {
+      "id": "hall-entrance",
+      "areaId": "central-hall",
+      "position": { "x": 0, "y": 1.6, "z": 8 },
+      "lookAt": { "x": 0, "y": 1.6, "z": 0 },
+      "hotspots": [
+        {
+          "id": "to-hall-center",
+          "targetViewpoint": "hall-center",
+          "position": { "x": 0, "y": 0.5, "z": 3 },
+          "label": "Walk forward",
+          "icon": "arrow"
+        }
+      ],
+      "infoPoints": []
+    },
+    {
+      "id": "hall-center",
+      "areaId": "central-hall",
+      "position": { "x": 0, "y": 1.6, "z": 0 },
+      "lookAt": { "x": 0, "y": 1.6, "z": -10 },
+      "hotspots": [
+        {
+          "id": "to-hall-entrance",
+          "targetViewpoint": "hall-entrance",
+          "position": { "x": 0, "y": 0.5, "z": 5 },
+          "label": "Go back",
+          "icon": "arrow"
+        },
+        {
+          "id": "to-hall-north",
+          "targetViewpoint": "hall-north",
+          "position": { "x": 0, "y": 0.5, "z": -5 },
+          "label": "Look north",
+          "icon": "arrow"
+        },
+        {
+          "id": "to-hall-west",
+          "targetViewpoint": "hall-west",
+          "position": { "x": -5, "y": 0.5, "z": 0 },
+          "label": "Look west (Library)",
+          "icon": "door"
+        },
+        {
+          "id": "to-hall-east",
+          "targetViewpoint": "hall-east",
+          "position": { "x": 5, "y": 0.5, "z": 0 },
+          "label": "Look east (Forge)",
+          "icon": "door"
+        }
+      ],
+      "infoPoints": [
+        {
+          "id": "info-welcome",
+          "contentId": "central-hall",
+          "position": { "x": 0, "y": 2, "z": -2 },
+          "label": "Welcome"
+        }
+      ]
+    },
+    {
+      "id": "hall-north",
+      "areaId": "central-hall",
+      "position": { "x": 0, "y": 1.6, "z": -6 },
+      "lookAt": { "x": 0, "y": 1.6, "z": -10 },
+      "hotspots": [
+        {
+          "id": "to-hall-center-from-north",
+          "targetViewpoint": "hall-center",
+          "position": { "x": 0, "y": 0.5, "z": -2 },
+          "label": "Go back",
+          "icon": "arrow"
+        },
+        {
+          "id": "to-pipelines",
+          "targetViewpoint": "pipelines-entrance",
+          "position": { "x": 0, "y": 1, "z": -9 },
+          "label": "Enter the Pipelines",
+          "icon": "door"
+        }
+      ],
+      "infoPoints": []
+    },
+    {
+      "id": "hall-west",
+      "areaId": "central-hall",
+      "position": { "x": -6, "y": 1.6, "z": 0 },
+      "lookAt": { "x": -10, "y": 1.6, "z": 0 },
+      "hotspots": [
+        {
+          "id": "to-hall-center-from-west",
+          "targetViewpoint": "hall-center",
+          "position": { "x": -2, "y": 0.5, "z": 0 },
+          "label": "Go back",
+          "icon": "arrow"
+        },
+        {
+          "id": "to-library",
+          "targetViewpoint": "library-entrance",
+          "position": { "x": -9, "y": 1, "z": 0 },
+          "label": "Enter the Library",
+          "icon": "door"
+        }
+      ],
+      "infoPoints": []
+    },
+    {
+      "id": "hall-east",
+      "areaId": "central-hall",
+      "position": { "x": 6, "y": 1.6, "z": 0 },
+      "lookAt": { "x": 10, "y": 1.6, "z": 0 },
+      "hotspots": [
+        {
+          "id": "to-hall-center-from-east",
+          "targetViewpoint": "hall-center",
+          "position": { "x": 2, "y": 0.5, "z": 0 },
+          "label": "Go back",
+          "icon": "arrow"
+        },
+        {
+          "id": "to-forge",
+          "targetViewpoint": "forge-entrance",
+          "position": { "x": 9, "y": 1, "z": 0 },
+          "label": "Enter the Forge",
+          "icon": "door"
+        }
+      ],
+      "infoPoints": []
+    },
+    {
+      "id": "library-entrance",
+      "areaId": "library",
+      "position": { "x": -15, "y": 1.6, "z": 0 },
+      "lookAt": { "x": -20, "y": 1.6, "z": 0 },
+      "hotspots": [
+        {
+          "id": "back-to-hall-from-library",
+          "targetViewpoint": "hall-west",
+          "position": { "x": -11, "y": 1, "z": 0 },
+          "label": "Return to Central Hall",
+          "icon": "door"
+        }
+      ],
+      "infoPoints": [
+        {
+          "id": "info-library",
+          "contentId": "library",
+          "position": { "x": -18, "y": 2, "z": 0 },
+          "label": "Documentation Skills"
+        }
+      ]
+    }
+  ]
+}

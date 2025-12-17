@@ -1,5 +1,3 @@
-import { RigidBody } from '@react-three/rapier'
-
 const ROOM_SIZE = 20
 const WALL_HEIGHT = 6
 const WALL_THICKNESS = 0.5
@@ -8,12 +6,10 @@ export default function CentralHall() {
   return (
     <group>
       {/* Floor */}
-      <RigidBody type="fixed">
-        <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-          <planeGeometry args={[ROOM_SIZE, ROOM_SIZE]} />
-          <meshStandardMaterial color="#3a3a3a" />
-        </mesh>
-      </RigidBody>
+      <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+        <planeGeometry args={[ROOM_SIZE, ROOM_SIZE]} />
+        <meshStandardMaterial color="#3a3a3a" />
+      </mesh>
 
       {/* Walls */}
       {/* North wall */}
@@ -38,12 +34,10 @@ export default function CentralHall() {
       />
 
       {/* Decorative center pillar */}
-      <RigidBody type="fixed">
-        <mesh castShadow receiveShadow position={[0, 1.5, 0]}>
-          <cylinderGeometry args={[0.5, 0.5, 3, 8]} />
-          <meshStandardMaterial color="#5a5a5a" />
-        </mesh>
-      </RigidBody>
+      <mesh castShadow receiveShadow position={[0, 1.5, 0]}>
+        <cylinderGeometry args={[0.5, 0.5, 3, 8]} />
+        <meshStandardMaterial color="#5a5a5a" />
+      </mesh>
     </group>
   )
 }
@@ -55,11 +49,9 @@ interface WallProps {
 
 function Wall({ position, size }: WallProps) {
   return (
-    <RigidBody type="fixed" position={position}>
-      <mesh castShadow receiveShadow>
-        <boxGeometry args={size} />
-        <meshStandardMaterial color="#4a4a4a" />
-      </mesh>
-    </RigidBody>
+    <mesh castShadow receiveShadow position={position}>
+      <boxGeometry args={size} />
+      <meshStandardMaterial color="#4a4a4a" />
+    </mesh>
   )
 }
