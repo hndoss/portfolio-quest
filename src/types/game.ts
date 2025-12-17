@@ -15,4 +15,6 @@ export interface GameState {
   isPaused: boolean
   activeInfoPoint: string | null
   hoveredHotspot: string | null
+  visitedAreas: Set<AreaId>
+  isQuickTravelOpen: boolean
 }

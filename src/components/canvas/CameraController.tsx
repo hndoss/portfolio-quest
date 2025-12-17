@@ -28,6 +28,7 @@ export default function CameraController({
   const completeTransition = useGameStore((state) => state.completeTransition)
   const setCurrentViewpoint = useGameStore((state) => state.setCurrentViewpoint)
   const setCurrentArea = useGameStore((state) => state.setCurrentArea)
+  const markAreaVisited = useGameStore((state) => state.markAreaVisited)
 
   // Find viewpoint by ID
   const findViewpoint = (id: string | null): Viewpoint | undefined => {
@@ -82,6 +83,7 @@ export default function CameraController({
       camera.lookAt(targetLookAt.current)
       if (targetAreaId.current) {
         setCurrentArea(targetAreaId.current)
+        markAreaVisited(targetAreaId.current)
       }
       completeTransition()
     } else {
