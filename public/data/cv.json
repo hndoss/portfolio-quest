@@ -1,0 +1,175 @@
+{
+  "profile": {
+    "name": "Quest Hero",
+    "title": "Full Stack Developer & DevOps Engineer",
+    "summary": "Passionate about building scalable applications and automating everything.",
+    "contact": {
+      "email": "hero@portfolio.quest",
+      "linkedin": "linkedin.com/in/quest-hero",
+      "github": "github.com/quest-hero"
+    }
+  },
+  "areas": [
+    {
+      "id": "central-hall",
+      "name": "Central Hall",
+      "category": "Overview",
+      "description": "Welcome to Portfolio Quest. Explore the castle to learn about my skills and experience.",
+      "items": []
+    },
+    {
+      "id": "library",
+      "name": "The Library",
+      "category": "Documentation",
+      "description": "Knowledge management and documentation expertise.",
+      "items": [
+        {
+          "id": "technical-writing",
+          "title": "Technical Writing",
+          "description": "Creating clear, comprehensive documentation for complex systems.",
+          "level": "advanced",
+          "years": 5
+        },
+        {
+          "id": "api-docs",
+          "title": "API Documentation",
+          "description": "OpenAPI/Swagger specifications and developer guides.",
+          "level": "expert",
+          "years": 4
+        }
+      ]
+    },
+    {
+      "id": "forge",
+      "name": "The Forge",
+      "category": "Development",
+      "description": "Where code is crafted and tools are built.",
+      "items": [
+        {
+          "id": "typescript",
+          "title": "TypeScript",
+          "description": "Strong typing for scalable JavaScript applications.",
+          "level": "expert",
+          "years": 5
+        },
+        {
+          "id": "react",
+          "title": "React",
+          "description": "Building modern, component-based user interfaces.",
+          "level": "expert",
+          "years": 6
+        },
+        {
+          "id": "nodejs",
+          "title": "Node.js",
+          "description": "Server-side JavaScript for APIs and services.",
+          "level": "advanced",
+          "years": 6
+        }
+      ]
+    },
+    {
+      "id": "pipelines",
+      "name": "The Pipelines",
+      "category": "CI/CD",
+      "description": "Automation flows that keep the castle running smoothly.",
+      "items": [
+        {
+          "id": "github-actions",
+          "title": "GitHub Actions",
+          "description": "Automated workflows for testing, building, and deploying.",
+          "level": "expert",
+          "years": 4,
+          "projects": ["project-automation"]
+        },
+        {
+          "id": "gitlab-ci",
+          "title": "GitLab CI",
+          "description": "Pipeline configuration and optimization.",
+          "level": "advanced",
+          "years": 3
+        },
+        {
+          "id": "argocd",
+          "title": "ArgoCD",
+          "description": "GitOps continuous delivery for Kubernetes.",
+          "level": "advanced",
+          "years": 2
+        }
+      ]
+    },
+    {
+      "id": "treasury",
+      "name": "The Treasury",
+      "category": "Security",
+      "description": "Protecting the kingdom's most valuable assets.",
+      "items": [
+        {
+          "id": "secrets-management",
+          "title": "Secrets Management",
+          "description": "Vault, SOPS, and secure credential handling.",
+          "level": "advanced",
+          "years": 3
+        },
+        {
+          "id": "security-scanning",
+          "title": "Security Scanning",
+          "description": "SAST, DAST, and dependency vulnerability analysis.",
+          "level": "intermediate",
+          "years": 2
+        }
+      ]
+    },
+    {
+      "id": "watchtower",
+      "name": "The Watchtower",
+      "category": "Monitoring",
+      "description": "Observing the kingdom from above.",
+      "items": [
+        {
+          "id": "prometheus",
+          "title": "Prometheus",
+          "description": "Metrics collection and alerting.",
+          "level": "advanced",
+          "years": 4
+        },
+        {
+          "id": "grafana",
+          "title": "Grafana",
+          "description": "Visualization and dashboards for system metrics.",
+          "level": "advanced",
+          "years": 4
+        },
+        {
+          "id": "logging",
+          "title": "Centralized Logging",
+          "description": "ELK stack and log aggregation.",
+          "level": "intermediate",
+          "years": 3
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "project-automation",
+      "name": "CI/CD Pipeline Framework",
+      "description": "A reusable framework for building CI/CD pipelines across multiple projects.",
+      "technologies": ["GitHub Actions", "Docker", "Kubernetes"],
+      "highlights": [
+        "Reduced deployment time by 60%",
+        "Standardized across 20+ repositories"
+      ]
+    },
+    {
+      "id": "project-monitoring",
+      "name": "Observability Platform",
+      "description": "Comprehensive monitoring solution for microservices architecture.",
+      "technologies": ["Prometheus", "Grafana", "Alertmanager"],
+      "highlights": [
+        "99.9% uptime achievement",
+        "Proactive alerting reduced incidents by 40%"
+      ]
+    }
+  ]
+}
