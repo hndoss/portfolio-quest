@@ -5,6 +5,7 @@ import LoadingScreen from './components/ui/LoadingScreen'
 import HUD from './components/ui/HUD'
 import Cursor from './components/ui/Cursor'
 import TransitionOverlay from './components/ui/TransitionOverlay'
+import InfoPanel from './components/ui/InfoPanel'
 
 function App() {
   const isLoading = useGameStore((state) => state.isLoading)
@@ -17,6 +18,7 @@ function App() {
       <HUD />
       <Cursor />
       <TransitionOverlay />
+      <InfoPanel />
       {isLoading && <LoadingScreen />}
     </>
   )
