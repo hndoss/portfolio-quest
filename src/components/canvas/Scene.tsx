@@ -4,6 +4,7 @@ import { useGameStore } from '../../stores/gameStore'
 import { useNavigation } from '../../hooks/useNavigation'
 import CameraController from './CameraController'
 import Hotspot from './Hotspot'
+import InfoPoint from './InfoPoint'
 import CentralHall from './areas/CentralHall'
 import Library from './areas/Library'
 
@@ -47,6 +48,11 @@ export default function Scene() {
       {/* Hotspots for current viewpoint */}
       {currentViewpointData?.hotspots.map((hotspot) => (
         <Hotspot key={hotspot.id} hotspot={hotspot} />
+      ))}
+
+      {/* InfoPoints for current viewpoint */}
+      {currentViewpointData?.infoPoints.map((infoPoint) => (
+        <InfoPoint key={infoPoint.id} infoPoint={infoPoint} />
       ))}
     </>
   )
