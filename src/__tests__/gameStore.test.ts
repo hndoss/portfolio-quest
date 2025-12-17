@@ -13,6 +13,8 @@ describe('gameStore', () => {
       isPaused: false,
       activeInfoPoint: null,
       hoveredHotspot: null,
+      visitedAreas: new Set(['central-hall']),
+      isQuickTravelOpen: false,
     })
   })
 
@@ -43,6 +45,14 @@ describe('gameStore', () => {
 
     it('should have no hovered hotspot', () => {
       expect(useGameStore.getState().hoveredHotspot).toBeNull()
+    })
+
+    it('should have central-hall as visited area', () => {
+      expect(useGameStore.getState().visitedAreas.has('central-hall')).toBe(true)
+    })
+
+    it('should have quick travel closed', () => {
+      expect(useGameStore.getState().isQuickTravelOpen).toBe(false)
     })
   })
 
@@ -123,6 +133,27 @@ describe('gameStore', () => {
         expect(useGameStore.getState().currentArea).toBe('forge')
       })
     })
+
+    describe('markAreaVisited', () => {
+      it('should add library to visited areas', () => {
+        useGameStore.getState().markAreaVisited('library')
+        expect(useGameStore.getState().visitedAreas.has('library')).toBe(true)
+      })
+
+      it('should preserve previously visited areas', () => {
+        useGameStore.getState().markAreaVisited('library')
+        useGameStore.getState().markAreaVisited('forge')
+        expect(useGameStore.getState().visitedAreas.has('central-hall')).toBe(true)
+        expect(useGameStore.getState().visitedAreas.has('library')).toBe(true)
+        expect(useGameStore.getState().visitedAreas.has('forge')).toBe(true)
+      })
+
+      it('should handle marking same area multiple times', () => {
+        useGameStore.getState().markAreaVisited('library')
+        useGameStore.getState().markAreaVisited('library')
+        expect(useGameStore.getState().visitedAreas.size).toBe(2) // central-hall + library
+      })
+    })
   })
 
   describe('UI actions', () => {
@@ -162,6 +193,19 @@ describe('gameStore', () => {
         useGameStore.getState().setActiveInfoPoint('info-1')
         useGameStore.getState().setActiveInfoPoint(null)
         expect(useGameStore.getState().activeInfoPoint).toBeNull()
+      })
+    })
+
+    describe('setQuickTravelOpen', () => {
+      it('should open quick travel', () => {
+        useGameStore.getState().setQuickTravelOpen(true)
+        expect(useGameStore.getState().isQuickTravelOpen).toBe(true)
+      })
+
+      it('should close quick travel', () => {
+        useGameStore.getState().setQuickTravelOpen(true)
+        useGameStore.getState().setQuickTravelOpen(false)
+        expect(useGameStore.getState().isQuickTravelOpen).toBe(false)
       })
     })
   })

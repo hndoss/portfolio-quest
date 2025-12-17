@@ -6,6 +6,7 @@ import HUD from './components/ui/HUD'
 import Cursor from './components/ui/Cursor'
 import TransitionOverlay from './components/ui/TransitionOverlay'
 import InfoPanel from './components/ui/InfoPanel'
+import QuickTravel from './components/ui/QuickTravel'
 
 function App() {
   const isLoading = useGameStore((state) => state.isLoading)
@@ -19,6 +20,7 @@ function App() {
       <Cursor />
       <TransitionOverlay />
       <InfoPanel />
+      <QuickTravel />
       {isLoading && <LoadingScreen />}
     </>
   )

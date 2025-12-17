@@ -10,11 +10,13 @@ interface GameStore extends GameState {
 
   // Area actions
   setCurrentArea: (area: AreaId) => void
+  markAreaVisited: (area: AreaId) => void
 
   // UI actions
   setLoading: (loading: boolean) => void
   setPaused: (paused: boolean) => void
   setActiveInfoPoint: (infoPointId: string | null) => void
+  setQuickTravelOpen: (open: boolean) => void
 }
 
 export const useGameStore = create<GameStore>((set) => ({
@@ -27,6 +29,8 @@ export const useGameStore = create<GameStore>((set) => ({
   isPaused: false,
   activeInfoPoint: null,
   hoveredHotspot: null,
+  visitedAreas: new Set<AreaId>(['central-hall']),
+  isQuickTravelOpen: false,
 
   // Navigation actions
   setCurrentViewpoint: (viewpointId) =>
@@ -46,9 +50,14 @@ export const useGameStore = create<GameStore>((set) => ({
 
   // Area actions
   setCurrentArea: (area) => set({ currentArea: area }),
+  markAreaVisited: (area) =>
+    set((state) => ({
+      visitedAreas: new Set([...state.visitedAreas, area]),
+    })),
 
   // UI actions
   setLoading: (loading) => set({ isLoading: loading }),
   setPaused: (paused) => set({ isPaused: paused }),
   setActiveInfoPoint: (infoPointId) => set({ activeInfoPoint: infoPointId }),
+  setQuickTravelOpen: (open) => set({ isQuickTravelOpen: open }),
 }))
