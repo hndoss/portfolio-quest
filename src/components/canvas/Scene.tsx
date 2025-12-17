@@ -5,6 +5,7 @@ import { useNavigation } from '../../hooks/useNavigation'
 import CameraController from './CameraController'
 import Hotspot from './Hotspot'
 import CentralHall from './areas/CentralHall'
+import Library from './areas/Library'
 
 export default function Scene() {
   const setLoading = useGameStore((state) => state.setLoading)
@@ -41,6 +42,7 @@ export default function Scene() {
 
       {/* Environment */}
       <CentralHall />
+      <Library />
 
       {/* Hotspots for current viewpoint */}
       {currentViewpointData?.hotspots.map((hotspot) => (
