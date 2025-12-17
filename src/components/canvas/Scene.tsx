@@ -1,35 +1,51 @@
 import { useEffect } from 'react'
 import { Sky } from '@react-three/drei'
-import { Physics } from '@react-three/rapier'
 import { useGameStore } from '../../stores/gameStore'
-import Player from './Player'
+import { useNavigation } from '../../hooks/useNavigation'
+import CameraController from './CameraController'
+import Hotspot from './Hotspot'
 import CentralHall from './areas/CentralHall'
 
 export default function Scene() {
   const setLoading = useGameStore((state) => state.setLoading)
+  const { viewpoints, currentViewpointData, isLoading: navLoading } = useNavigation()
 
   useEffect(() => {
-    // Simulate asset loading completion
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 500)
-    return () => clearTimeout(timer)
-  }, [setLoading])
+    if (!navLoading && viewpoints.length > 0) {
+      // Loading complete once navigation data is ready
+      const timer = setTimeout(() => {
+        setLoading(false)
+      }, 300)
+      return () => clearTimeout(timer)
+    }
+  }, [navLoading, viewpoints, setLoading])
 
   return (
     <>
-      <ambientLight intensity={0.3} />
+      {/* Lighting */}
+      <ambientLight intensity={0.4} />
       <directionalLight
         position={[10, 20, 10]}
         intensity={1}
         castShadow
         shadow-mapSize={[2048, 2048]}
       />
+
+      {/* Sky */}
       <Sky sunPosition={[100, 20, 100]} />
-      <Physics gravity={[0, -9.81, 0]}>
-        <Player />
-        <CentralHall />
-      </Physics>
+
+      {/* Camera Controller */}
+      {viewpoints.length > 0 && (
+        <CameraController viewpoints={viewpoints} transitionDuration={1.2} />
+      )}
+
+      {/* Environment */}
+      <CentralHall />
+
+      {/* Hotspots for current viewpoint */}
+      {currentViewpointData?.hotspots.map((hotspot) => (
+        <Hotspot key={hotspot.id} hotspot={hotspot} />
+      ))}
     </>
   )
 }

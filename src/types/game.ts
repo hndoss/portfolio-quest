@@ -6,15 +6,13 @@ export type AreaId =
   | 'treasury'
   | 'watchtower'
 
-export interface PlayerPosition {
-  x: number
-  y: number
-  z: number
-}
-
 export interface GameState {
   currentArea: AreaId
+  currentViewpoint: string | null
+  targetViewpoint: string | null
+  isTransitioning: boolean
   isLoading: boolean
   isPaused: boolean
   activeInfoPoint: string | null
+  hoveredHotspot: string | null
 }
