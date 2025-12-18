@@ -15,7 +15,29 @@
       "name": "Central Hall",
       "category": "Overview",
       "description": "Welcome to Portfolio Quest. Explore the castle to learn about my skills and experience.",
-      "items": []
+      "items": [
+        {
+          "id": "about-me",
+          "title": "About Me",
+          "description": "Passionate about building scalable applications and automating everything. With over 8 years of experience in software development and DevOps, I specialize in creating robust systems that handle complexity gracefully. My journey spans from frontend interfaces to backend services, infrastructure automation, and security practices.",
+          "level": "expert",
+          "years": 8
+        },
+        {
+          "id": "core-expertise",
+          "title": "Core Expertise",
+          "description": "Full-stack development with TypeScript and React. DevOps and infrastructure automation. CI/CD pipeline design and optimization. Security-first application architecture. Monitoring and observability solutions.",
+          "level": "expert",
+          "years": 8
+        },
+        {
+          "id": "philosophy",
+          "title": "Engineering Philosophy",
+          "description": "I believe in automation over repetition, clarity over cleverness, and pragmatic solutions over perfect ones. Every system should be observable, testable, and maintainable. Documentation is a feature, not an afterthought.",
+          "level": "advanced",
+          "years": 8
+        }
+      ]
     },
     {
       "id": "library",

@@ -1,6 +1,6 @@
 import { useGameStore } from '../../stores/gameStore'
 import { useCVData } from '../../hooks/useCVData'
-import type { SkillItem, Area } from '../../types/cv'
+import type { SkillItem, Area, Profile } from '../../types/cv'
 
 const styles: Record<string, React.CSSProperties> = {
   overlay: {
@@ -97,20 +97,121 @@ const levelColors: Record<string, string> = {
   expert: '#ffcc00',
 }
 
+const profileStyles: Record<string, React.CSSProperties> = {
+  profileName: {
+    fontSize: '2rem',
+    marginBottom: '0.25rem',
+    color: '#00ff88',
+  },
+  profileTitle: {
+    fontSize: '1.1rem',
+    color: '#888',
+    marginBottom: '1.5rem',
+  },
+  profileSummary: {
+    fontSize: '1rem',
+    lineHeight: 1.6,
+    color: '#ccc',
+    marginBottom: '2rem',
+  },
+  contactSection: {
+    marginTop: '1.5rem',
+    paddingTop: '1.5rem',
+    borderTop: '1px solid #333',
+  },
+  contactTitle: {
+    fontSize: '1rem',
+    color: '#00ff88',
+    marginBottom: '1rem',
+  },
+  contactLink: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.75rem',
+    color: '#888',
+    textDecoration: 'none',
+    padding: '0.5rem 0',
+    transition: 'color 0.2s',
+    fontSize: '0.95rem',
+  },
+  contactIcon: {
+    width: '20px',
+    height: '20px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#666',
+  },
+}
+
+function ProfileDisplay({ profile }: { profile: Profile }) {
+  return (
+    <>
+      <h1 style={profileStyles.profileName}>{profile.name}</h1>
+      <div style={profileStyles.profileTitle}>{profile.title}</div>
+      <p style={profileStyles.profileSummary}>{profile.summary}</p>
+
+      <div style={profileStyles.contactSection}>
+        <h3 style={profileStyles.contactTitle}>Contact</h3>
+        {profile.contact.email && (
+          <a
+            href={`mailto:${profile.contact.email}`}
+            style={profileStyles.contactLink}
+            onMouseOver={(e) => (e.currentTarget.style.color = '#00ff88')}
+            onMouseOut={(e) => (e.currentTarget.style.color = '#888')}
+          >
+            <span style={profileStyles.contactIcon}>@</span>
+            {profile.contact.email}
+          </a>
+        )}
+        {profile.contact.linkedin && (
+          <a
+            href={`https://${profile.contact.linkedin}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={profileStyles.contactLink}
+            onMouseOver={(e) => (e.currentTarget.style.color = '#0077b5')}
+            onMouseOut={(e) => (e.currentTarget.style.color = '#888')}
+          >
+            <span style={profileStyles.contactIcon}>in</span>
+            {profile.contact.linkedin}
+          </a>
+        )}
+        {profile.contact.github && (
+          <a
+            href={`https://${profile.contact.github}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={profileStyles.contactLink}
+            onMouseOver={(e) => (e.currentTarget.style.color = '#fff')}
+            onMouseOut={(e) => (e.currentTarget.style.color = '#888')}
+          >
+            <span style={profileStyles.contactIcon}>&lt;/&gt;</span>
+            {profile.contact.github}
+          </a>
+        )}
+      </div>
+    </>
+  )
+}
+
 export default function InfoPanel() {
   const activeInfoPoint = useGameStore((state) => state.activeInfoPoint)
   const setActiveInfoPoint = useGameStore((state) => state.setActiveInfoPoint)
-  const { getContentById } = useCVData()
+  const { getContentById, getProfile } = useCVData()
 
-  const content = activeInfoPoint ? getContentById(activeInfoPoint) : null
+  const isProfileView = activeInfoPoint === 'profile'
+  const profile = getProfile()
+  const content = activeInfoPoint && !isProfileView ? getContentById(activeInfoPoint) : null
 
   const handleClose = () => {
     setActiveInfoPoint(null)
   }
 
-  if (!content) {
+  // Loading state - only show if we have an active point but no content yet
+  if (activeInfoPoint && !isProfileView && !content) {
     return (
-      <div style={{ ...styles.overlay, ...(activeInfoPoint ? {} : styles.hidden) }}>
+      <div style={{ ...styles.overlay }}>
         <button style={styles.closeButton} onClick={handleClose}>
           &times;
         </button>
@@ -119,16 +220,23 @@ export default function InfoPanel() {
     )
   }
 
-  // Check if content is an Area or a SkillItem
-  const isArea = 'items' in content
+  // Hidden state
+  if (!activeInfoPoint) {
+    return <div style={{ ...styles.overlay, ...styles.hidden }} />
+  }
+
+  // Check content type
+  const isArea = content && 'items' in content
   const area = isArea ? (content as Area) : null
-  const skill = !isArea ? (content as SkillItem) : null
+  const skill = content && !isArea ? (content as SkillItem) : null
 
   return (
-    <div style={{ ...styles.overlay, ...(activeInfoPoint ? {} : styles.hidden) }}>
+    <div style={styles.overlay}>
       <button style={styles.closeButton} onClick={handleClose}>
         &times;
       </button>
+
+      {isProfileView && profile && <ProfileDisplay profile={profile} />}
 
       {area && (
         <>
