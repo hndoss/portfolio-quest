@@ -65,6 +65,20 @@
           "description": "Server-side JavaScript for APIs and services.",
           "level": "advanced",
           "years": 6
+        },
+        {
+          "id": "build-tools",
+          "title": "Build Tools",
+          "description": "Webpack, Vite, esbuild, and modern bundling systems.",
+          "level": "advanced",
+          "years": 5
+        },
+        {
+          "id": "testing",
+          "title": "Testing Frameworks",
+          "description": "Jest, Vitest, Playwright, and testing best practices.",
+          "level": "advanced",
+          "years": 5
         }
       ]
     },
@@ -95,6 +109,13 @@
           "description": "GitOps continuous delivery for Kubernetes.",
           "level": "advanced",
           "years": 2
+        },
+        {
+          "id": "docker",
+          "title": "Docker & Containers",
+          "description": "Container orchestration, Dockerfile optimization, and multi-stage builds.",
+          "level": "expert",
+          "years": 5
         }
       ]
     },
@@ -117,6 +138,20 @@
           "description": "SAST, DAST, and dependency vulnerability analysis.",
           "level": "intermediate",
           "years": 2
+        },
+        {
+          "id": "authentication",
+          "title": "Authentication",
+          "description": "OAuth 2.0, OIDC, JWT, and identity management.",
+          "level": "advanced",
+          "years": 4
+        },
+        {
+          "id": "encryption",
+          "title": "Encryption",
+          "description": "TLS/SSL, data encryption at rest and in transit.",
+          "level": "intermediate",
+          "years": 3
         }
       ]
     },
@@ -146,6 +181,13 @@
           "description": "ELK stack and log aggregation.",
           "level": "intermediate",
           "years": 3
+        },
+        {
+          "id": "metrics",
+          "title": "Metrics & Dashboards",
+          "description": "Custom metrics, SLIs/SLOs, and performance monitoring.",
+          "level": "advanced",
+          "years": 4
         }
       ]
     }

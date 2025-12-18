@@ -19,6 +19,18 @@ const viewpointLabels: Record<string, string> = {
   'library-entrance': 'Entrance',
   'library-center': 'Reading Area',
   'library-shelves': 'Shelves',
+  'forge-entrance': 'Entrance',
+  'forge-center': 'Workshop',
+  'forge-anvils': 'Anvils',
+  'pipelines-entrance': 'Entrance',
+  'pipelines-center': 'Main Corridor',
+  'pipelines-control': 'Control Room',
+  'treasury-entrance': 'Entrance',
+  'treasury-center': 'Vault Hall',
+  'treasury-vault': 'Main Vault',
+  'watchtower-entrance': 'Entrance',
+  'watchtower-center': 'Observatory',
+  'watchtower-telescope': 'Telescope',
 }
 
 const styles: Record<string, React.CSSProperties> = {
