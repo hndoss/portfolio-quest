@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import type { CVData, Area, SkillItem, Project } from '../types/cv'
+import type { CVData, Area, SkillItem, Project, Profile } from '../types/cv'
 
 export function useCVData() {
   const [cvData, setCVData] = useState<CVData | null>(null)
@@ -65,6 +65,12 @@ export function useCVData() {
     [cvData]
   )
 
+  // Get profile data
+  const getProfile = useCallback((): Profile | null => {
+    if (!cvData) return null
+    return cvData.profile
+  }, [cvData])
+
   return {
     cvData,
     isLoading,
@@ -72,5 +78,6 @@ export function useCVData() {
     getContentById,
     getAreaById,
     getProjectById,
+    getProfile,
   }
 }

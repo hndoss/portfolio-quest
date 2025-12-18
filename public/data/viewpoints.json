@@ -22,7 +22,14 @@
           "icon": "stairs"
         }
       ],
-      "infoPoints": []
+      "infoPoints": [
+        {
+          "id": "info-pipelines-banner",
+          "contentId": "pipelines",
+          "position": { "x": 0, "y": 3, "z": 7 },
+          "label": "Pipelines Area"
+        }
+      ]
     },
     {
       "id": "hall-center",
@@ -61,10 +68,28 @@
       ],
       "infoPoints": [
         {
-          "id": "info-welcome",
-          "contentId": "central-hall",
-          "position": { "x": 0, "y": 2, "z": -2 },
-          "label": "Welcome"
+          "id": "info-profile",
+          "contentId": "profile",
+          "position": { "x": 0, "y": 2.5, "z": 0 },
+          "label": "Meet the Developer"
+        },
+        {
+          "id": "info-about-me",
+          "contentId": "about-me",
+          "position": { "x": -2, "y": 1.5, "z": -2 },
+          "label": "About Me"
+        },
+        {
+          "id": "info-core-expertise",
+          "contentId": "core-expertise",
+          "position": { "x": 2, "y": 1.5, "z": -2 },
+          "label": "Core Expertise"
+        },
+        {
+          "id": "info-philosophy",
+          "contentId": "philosophy",
+          "position": { "x": 0, "y": 1.5, "z": 2 },
+          "label": "Engineering Philosophy"
         }
       ]
     },
@@ -89,7 +114,14 @@
           "icon": "stairs"
         }
       ],
-      "infoPoints": []
+      "infoPoints": [
+        {
+          "id": "info-watchtower-banner",
+          "contentId": "watchtower",
+          "position": { "x": 0, "y": 3, "z": -7 },
+          "label": "Monitoring & Observability"
+        }
+      ]
     },
     {
       "id": "hall-west",
@@ -112,7 +144,14 @@
           "icon": "door"
         }
       ],
-      "infoPoints": []
+      "infoPoints": [
+        {
+          "id": "info-library-banner",
+          "contentId": "library",
+          "position": { "x": -7, "y": 3, "z": 0 },
+          "label": "Documentation & Knowledge"
+        }
+      ]
     },
     {
       "id": "hall-east",
@@ -135,7 +174,14 @@
           "icon": "door"
         }
       ],
-      "infoPoints": []
+      "infoPoints": [
+        {
+          "id": "info-forge-banner",
+          "contentId": "forge",
+          "position": { "x": 7, "y": 3, "z": 0 },
+          "label": "Development Tools"
+        }
+      ]
     },
     {
       "id": "library-entrance",
