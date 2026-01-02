@@ -7,7 +7,7 @@ const areaNames: Record<string, string> = {
   forge: 'Forge',
   pipelines: 'Pipelines',
   treasury: 'Treasury',
-  watchtower: 'Watchtower',
+  observatory: 'Observatory',
 }
 
 const viewpointLabels: Record<string, string> = {
@@ -28,9 +28,9 @@ const viewpointLabels: Record<string, string> = {
   'treasury-entrance': 'Entrance',
   'treasury-center': 'Vault Hall',
   'treasury-vault': 'Main Vault',
-  'watchtower-entrance': 'Entrance',
-  'watchtower-center': 'Observatory',
-  'watchtower-telescope': 'Telescope',
+  'observatory-entrance': 'Entrance',
+  'observatory-center': 'Main Room',
+  'observatory-telescope': 'Telescope',
 }
 
 const styles: Record<string, React.CSSProperties> = {

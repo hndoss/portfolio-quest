@@ -1,5 +1,5 @@
 {
-  "startViewpoint": "hall-entrance",
+  "startViewpoint": "observatory-center",
   "viewpoints": [
     {
       "id": "hall-entrance",
@@ -48,7 +48,7 @@
           "id": "to-hall-north",
           "targetViewpoint": "hall-north",
           "position": { "x": 0, "y": 0.5, "z": -5 },
-          "label": "Look north (Watchtower)",
+          "label": "Look north (Observatory)",
           "icon": "door"
         },
         {
@@ -107,17 +107,17 @@
           "icon": "arrow"
         },
         {
-          "id": "to-watchtower",
-          "targetViewpoint": "watchtower-entrance",
+          "id": "to-observatory",
+          "targetViewpoint": "observatory-entrance",
           "position": { "x": 0, "y": 1, "z": -9 },
-          "label": "Climb to the Watchtower",
+          "label": "Enter the Observatory",
           "icon": "stairs"
         }
       ],
       "infoPoints": [
         {
-          "id": "info-watchtower-banner",
-          "contentId": "watchtower",
+          "id": "info-observatory-banner",
+          "contentId": "observatory",
           "position": { "x": 0, "y": 3, "z": -7 },
           "label": "Monitoring & Observability"
         }
@@ -519,21 +519,21 @@
       ]
     },
     {
-      "id": "watchtower-entrance",
-      "areaId": "watchtower",
+      "id": "observatory-entrance",
+      "areaId": "observatory",
       "position": { "x": 0, "y": 1.6, "z": -22 },
       "lookAt": { "x": 0, "y": 1.5, "z": -30 },
       "hotspots": [
         {
-          "id": "back-to-hall-from-watchtower",
+          "id": "back-to-hall-from-observatory",
           "targetViewpoint": "hall-north",
           "position": { "x": 0, "y": 1, "z": -15 },
           "label": "Return to Central Hall",
           "icon": "stairs"
         },
         {
-          "id": "to-watchtower-center",
-          "targetViewpoint": "watchtower-center",
+          "id": "to-observatory-center",
+          "targetViewpoint": "observatory-center",
           "position": { "x": 0, "y": 0.5, "z": -28 },
           "label": "Climb to observatory",
           "icon": "arrow"
@@ -542,21 +542,21 @@
       "infoPoints": []
     },
     {
-      "id": "watchtower-center",
-      "areaId": "watchtower",
+      "id": "observatory-center",
+      "areaId": "observatory",
       "position": { "x": 0, "y": 1.6, "z": -30 },
       "lookAt": { "x": 0, "y": 2, "z": -35 },
       "hotspots": [
         {
-          "id": "to-watchtower-entrance-from-center",
-          "targetViewpoint": "watchtower-entrance",
+          "id": "to-observatory-entrance-from-center",
+          "targetViewpoint": "observatory-entrance",
           "position": { "x": 0, "y": 0.5, "z": -24 },
           "label": "Go to entrance",
           "icon": "arrow"
         },
         {
-          "id": "to-watchtower-telescope",
-          "targetViewpoint": "watchtower-telescope",
+          "id": "to-observatory-telescope",
+          "targetViewpoint": "observatory-telescope",
           "position": { "x": 0, "y": 0.5, "z": -33 },
           "label": "View the telescope",
           "icon": "arrow"
@@ -564,22 +564,22 @@
       ],
       "infoPoints": [
         {
-          "id": "info-watchtower-overview",
-          "contentId": "watchtower",
+          "id": "info-observatory-overview",
+          "contentId": "observatory",
           "position": { "x": -2, "y": 2.2, "z": -28 },
           "label": "Monitoring & Observability"
         }
       ]
     },
     {
-      "id": "watchtower-telescope",
-      "areaId": "watchtower",
+      "id": "observatory-telescope",
+      "areaId": "observatory",
       "position": { "x": 0, "y": 1.6, "z": -32 },
       "lookAt": { "x": 0, "y": 2.5, "z": -35 },
       "hotspots": [
         {
-          "id": "to-watchtower-center-from-telescope",
-          "targetViewpoint": "watchtower-center",
+          "id": "to-observatory-center-from-telescope",
+          "targetViewpoint": "observatory-center",
           "position": { "x": 0, "y": 0.5, "z": -28 },
           "label": "Go back",
           "icon": "arrow"

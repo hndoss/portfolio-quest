@@ -8,7 +8,7 @@ const areaData: { id: AreaId; name: string; defaultViewpoint: string }[] = [
   { id: 'forge', name: 'The Forge', defaultViewpoint: 'forge-entrance' },
   { id: 'pipelines', name: 'The Pipelines', defaultViewpoint: 'pipelines-entrance' },
   { id: 'treasury', name: 'The Treasury', defaultViewpoint: 'treasury-entrance' },
-  { id: 'watchtower', name: 'The Watchtower', defaultViewpoint: 'watchtower-entrance' },
+  { id: 'observatory', name: 'The Observatory', defaultViewpoint: 'observatory-entrance' },
 ]
 
 const styles: Record<string, React.CSSProperties> = {
