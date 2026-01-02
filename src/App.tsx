@@ -7,6 +7,7 @@ import Cursor from './components/ui/Cursor'
 import TransitionOverlay from './components/ui/TransitionOverlay'
 import InfoPanel from './components/ui/InfoPanel'
 import QuickTravel from './components/ui/QuickTravel'
+import TelescopeStatusBar from './components/ui/TelescopeStatusBar'
 
 function App() {
   const isLoading = useGameStore((state) => state.isLoading)
@@ -21,6 +22,7 @@ function App() {
       <TransitionOverlay />
       <InfoPanel />
       <QuickTravel />
+      <TelescopeStatusBar />
       {isLoading && <LoadingScreen />}
     </>
   )
