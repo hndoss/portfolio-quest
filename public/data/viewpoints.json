@@ -521,13 +521,13 @@
     {
       "id": "observatory-entrance",
       "areaId": "observatory",
-      "position": { "x": 0, "y": 1.6, "z": -22 },
-      "lookAt": { "x": 0, "y": 1.5, "z": -30 },
+      "position": { "x": 0, "y": 2.2, "z": -24 },
+      "lookAt": { "x": 0, "y": 1.5, "z": -31 },
       "hotspots": [
         {
           "id": "back-to-hall-from-observatory",
           "targetViewpoint": "hall-north",
-          "position": { "x": 0, "y": 1, "z": -15 },
+          "position": { "x": 0, "y": 1, "z": -18 },
           "label": "Return to Central Hall",
           "icon": "stairs"
         },
@@ -535,7 +535,7 @@
           "id": "to-observatory-center",
           "targetViewpoint": "observatory-center",
           "position": { "x": 0, "y": 0.5, "z": -28 },
-          "label": "Climb to observatory",
+          "label": "Enter the observatory",
           "icon": "arrow"
         }
       ],
@@ -544,8 +544,8 @@
     {
       "id": "observatory-center",
       "areaId": "observatory",
-      "position": { "x": 0, "y": 1.6, "z": -30 },
-      "lookAt": { "x": 0, "y": 2, "z": -35 },
+      "position": { "x": 0, "y": 2.8, "z": -26 },
+      "lookAt": { "x": 0, "y": 1.5, "z": -31.5 },
       "hotspots": [
         {
           "id": "to-observatory-entrance-from-center",
@@ -557,8 +557,8 @@
         {
           "id": "to-observatory-telescope",
           "targetViewpoint": "observatory-telescope",
-          "position": { "x": 0, "y": 0.5, "z": -33 },
-          "label": "View the telescope",
+          "position": { "x": 0, "y": 1.2, "z": -31 },
+          "label": "Approach the telescope",
           "icon": "arrow"
         }
       ],
@@ -566,7 +566,7 @@
         {
           "id": "info-observatory-overview",
           "contentId": "observatory",
-          "position": { "x": -2, "y": 2.2, "z": -28 },
+          "position": { "x": -3, "y": 2.5, "z": -28 },
           "label": "Monitoring & Observability"
         }
       ]
@@ -574,14 +574,14 @@
     {
       "id": "observatory-telescope",
       "areaId": "observatory",
-      "position": { "x": 0, "y": 1.6, "z": -32 },
-      "lookAt": { "x": 0, "y": 2.5, "z": -35 },
+      "position": { "x": 2, "y": 1.8, "z": -29 },
+      "lookAt": { "x": 0, "y": 1.5, "z": -31.5 },
       "hotspots": [
         {
           "id": "to-observatory-center-from-telescope",
           "targetViewpoint": "observatory-center",
-          "position": { "x": 0, "y": 0.5, "z": -28 },
-          "label": "Go back",
+          "position": { "x": 0, "y": 0.5, "z": -26 },
+          "label": "Step back",
           "icon": "arrow"
         }
       ],
@@ -589,13 +589,13 @@
         {
           "id": "info-logging",
           "contentId": "logging",
-          "position": { "x": -3, "y": 1.8, "z": -32 },
+          "position": { "x": -4, "y": 2.5, "z": -30 },
           "label": "Logging Systems"
         },
         {
           "id": "info-metrics",
           "contentId": "metrics",
-          "position": { "x": 3, "y": 1.8, "z": -32 },
+          "position": { "x": 4, "y": 2.5, "z": -30 },
           "label": "Metrics & Dashboards"
         }
       ]
