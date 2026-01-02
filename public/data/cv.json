@@ -178,10 +178,10 @@
       ]
     },
     {
-      "id": "watchtower",
-      "name": "The Watchtower",
-      "category": "Monitoring",
-      "description": "Observing the kingdom from above.",
+      "id": "observatory",
+      "name": "The Observatory",
+      "category": "Monitoring & Observability",
+      "description": "Observing systems and signals from above.",
       "items": [
         {
           "id": "prometheus",
@@ -235,5 +235,76 @@
         "Proactive alerting reduced incidents by 40%"
       ]
     }
-  ]
+  ],
+  "observatory": {
+    "telescope": {
+      "tools": [
+        {
+          "id": "grafana",
+          "name": "Grafana",
+          "verb": "Operated",
+          "context": "dashboards, investigation",
+          "scope": "Team dashboards for service health monitoring and capacity planning"
+        },
+        {
+          "id": "prometheus",
+          "name": "Prometheus",
+          "verb": "Configured",
+          "context": "metrics collection, alerting rules",
+          "scope": "Metrics pipeline for 50+ services with custom recording rules"
+        },
+        {
+          "id": "alertmanager",
+          "name": "Alertmanager",
+          "verb": "Owned",
+          "context": "routing, silencing, escalation",
+          "scope": "Alert routing configuration for multi-team on-call rotations"
+        },
+        {
+          "id": "datadog",
+          "name": "Datadog",
+          "verb": "Operated",
+          "context": "APM, logs, infrastructure",
+          "scope": "Full-stack observability for production services"
+        },
+        {
+          "id": "sumo",
+          "name": "Sumo Logic",
+          "verb": "Observed",
+          "context": "log analysis, security",
+          "scope": "Security log analysis and compliance reporting"
+        }
+      ]
+    },
+    "beacon": {
+      "tools": ["PagerDuty", "OpsGenie"],
+      "experience": {
+        "rotations": "Primary on-call for platform services, 1-week rotations with 24/7 coverage",
+        "escalation": "Defined escalation policies across 3 tiers with automatic page escalation",
+        "response": "Average acknowledgment time under 5 minutes, triage and delegate or resolve"
+      }
+    },
+    "ledger": {
+      "incidents": [
+        {
+          "id": "inc-001",
+          "summary": "Database connection pool exhaustion during traffic spike",
+          "role": "Incident Commander",
+          "learnings": "Implemented connection pooling limits and added early warning alerts"
+        },
+        {
+          "id": "inc-002",
+          "summary": "Certificate expiration caused service authentication failures",
+          "role": "Responder",
+          "learnings": "Automated certificate rotation and added expiry monitoring"
+        },
+        {
+          "id": "inc-003",
+          "summary": "Memory leak in batch processing service",
+          "role": "Investigator",
+          "learnings": "Added memory profiling to CI pipeline and runtime limits"
+        }
+      ]
+    }
+  }
 }
