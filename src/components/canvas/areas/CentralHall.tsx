@@ -58,7 +58,7 @@ export default function CentralHall() {
       </mesh>
 
       {/* Walls with doorways */}
-      {/* North wall - doorway to Watchtower */}
+      {/* North wall - doorway to Observatory */}
       <WallWithDoorway
         position={[0, 0, -ROOM_SIZE / 2]}
         wallWidth={ROOM_SIZE}
@@ -117,7 +117,7 @@ export default function CentralHall() {
         position={[0, 3, -7]}
         rotation={[0, 0, 0]}
         color="#87ceeb"
-        label="Watchtower"
+        label="Observatory"
         icon="telescope"
       />
       <AreaBanner

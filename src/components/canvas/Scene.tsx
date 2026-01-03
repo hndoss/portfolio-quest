@@ -5,12 +5,13 @@ import { useNavigation } from '../../hooks/useNavigation'
 import CameraController from './CameraController'
 import Hotspot from './Hotspot'
 import InfoPoint from './InfoPoint'
+import TelescopeMode from './TelescopeMode'
 import CentralHall from './areas/CentralHall'
 import Library from './areas/Library'
 import Forge from './areas/Forge'
 import Pipelines from './areas/Pipelines'
 import Treasury from './areas/Treasury'
-import Watchtower from './areas/Watchtower'
+import Observatory from './areas/Observatory'
 
 export default function Scene() {
   const setLoading = useGameStore((state) => state.setLoading)
@@ -51,7 +52,10 @@ export default function Scene() {
       <Forge />
       <Pipelines />
       <Treasury />
-      <Watchtower />
+      <Observatory />
+
+      {/* Telescope Mode Overlay (Observatory) */}
+      <TelescopeMode />
 
       {/* Hotspots for current viewpoint */}
       {currentViewpointData?.hotspots.map((hotspot) => (

@@ -1,6 +1,6 @@
 import { useGameStore } from '../../stores/gameStore'
 import { useCVData } from '../../hooks/useCVData'
-import type { SkillItem, Area, Profile } from '../../types/cv'
+import type { SkillItem, Area, Profile, BeaconExperience, IncidentRecord } from '../../types/cv'
 
 const styles: Record<string, React.CSSProperties> = {
   overlay: {
@@ -95,6 +95,68 @@ const levelColors: Record<string, string> = {
   intermediate: '#4a9eff',
   advanced: '#00ff88',
   expert: '#ffcc00',
+}
+
+const observatoryStyles: Record<string, React.CSSProperties> = {
+  sectionTitle: {
+    fontSize: '1rem',
+    color: '#ff9944',
+    marginBottom: '0.75rem',
+    marginTop: '1.5rem',
+    borderBottom: '1px solid #333',
+    paddingBottom: '0.5rem',
+  },
+  toolBadge: {
+    display: 'inline-block',
+    padding: '0.25rem 0.5rem',
+    backgroundColor: 'rgba(255, 153, 68, 0.2)',
+    borderRadius: '4px',
+    marginRight: '0.5rem',
+    marginBottom: '0.5rem',
+    fontSize: '0.85rem',
+    color: '#ff9944',
+  },
+  experienceItem: {
+    marginBottom: '1rem',
+    padding: '1rem',
+    backgroundColor: 'rgba(255,255,255,0.05)',
+    borderRadius: '8px',
+  },
+  experienceLabel: {
+    fontSize: '0.85rem',
+    color: '#ff9944',
+    fontWeight: 'bold',
+    marginBottom: '0.25rem',
+  },
+  experienceValue: {
+    fontSize: '0.95rem',
+    color: '#ccc',
+    lineHeight: 1.5,
+  },
+  incidentCard: {
+    marginBottom: '1rem',
+    padding: '1rem',
+    backgroundColor: 'rgba(255,255,255,0.05)',
+    borderRadius: '8px',
+    borderLeft: '3px solid #aaaaaa',
+  },
+  incidentSummary: {
+    fontSize: '0.95rem',
+    color: '#fff',
+    marginBottom: '0.5rem',
+    lineHeight: 1.4,
+  },
+  incidentRole: {
+    fontSize: '0.8rem',
+    color: '#aaaaaa',
+    marginBottom: '0.5rem',
+  },
+  incidentLearnings: {
+    fontSize: '0.85rem',
+    color: '#888',
+    fontStyle: 'italic',
+    lineHeight: 1.4,
+  },
 }
 
 const profileStyles: Record<string, React.CSSProperties> = {
@@ -195,21 +257,105 @@ function ProfileDisplay({ profile }: { profile: Profile }) {
   )
 }
 
+interface BeaconDisplayProps {
+  tools: string[]
+  experience: BeaconExperience
+}
+
+function BeaconDisplay({ tools, experience }: BeaconDisplayProps) {
+  return (
+    <>
+      <h2 style={{ ...styles.title, color: '#ff9944' }}>Signal Beacon</h2>
+      <div style={styles.category}>On-Call & Incident Response</div>
+      <p style={styles.description}>
+        Coordinating alerts and managing incident response across teams.
+      </p>
+
+      <h3 style={observatoryStyles.sectionTitle}>Tools</h3>
+      <div>
+        {tools.map((tool) => (
+          <span key={tool} style={observatoryStyles.toolBadge}>
+            {tool}
+          </span>
+        ))}
+      </div>
+
+      <h3 style={observatoryStyles.sectionTitle}>Experience</h3>
+      <div style={observatoryStyles.experienceItem}>
+        <div style={observatoryStyles.experienceLabel}>Rotations</div>
+        <div style={observatoryStyles.experienceValue}>{experience.rotations}</div>
+      </div>
+      <div style={observatoryStyles.experienceItem}>
+        <div style={observatoryStyles.experienceLabel}>Escalation</div>
+        <div style={observatoryStyles.experienceValue}>{experience.escalation}</div>
+      </div>
+      <div style={observatoryStyles.experienceItem}>
+        <div style={observatoryStyles.experienceLabel}>Response</div>
+        <div style={observatoryStyles.experienceValue}>{experience.response}</div>
+      </div>
+    </>
+  )
+}
+
+interface LedgerDisplayProps {
+  incidents: IncidentRecord[]
+}
+
+function LedgerDisplay({ incidents }: LedgerDisplayProps) {
+  return (
+    <>
+      <h2 style={{ ...styles.title, color: '#aaaaaa' }}>Observation Ledger</h2>
+      <div style={styles.category}>Incident History & Learnings</div>
+      <p style={styles.description}>
+        A record of notable incidents and the lessons learned from them.
+      </p>
+
+      <h3 style={observatoryStyles.sectionTitle}>Incident Records</h3>
+      {incidents.map((incident) => (
+        <div key={incident.id} style={observatoryStyles.incidentCard}>
+          <div style={observatoryStyles.incidentSummary}>{incident.summary}</div>
+          <div style={observatoryStyles.incidentRole}>Role: {incident.role}</div>
+          <div style={observatoryStyles.incidentLearnings}>
+            "{incident.learnings}"
+          </div>
+        </div>
+      ))}
+    </>
+  )
+}
+
 export default function InfoPanel() {
   const activeInfoPoint = useGameStore((state) => state.activeInfoPoint)
   const setActiveInfoPoint = useGameStore((state) => state.setActiveInfoPoint)
-  const { getContentById, getProfile } = useCVData()
+  const { getContentById, getProfile, getObservatoryData } = useCVData()
 
   const isProfileView = activeInfoPoint === 'profile'
+  const isBeaconView = activeInfoPoint === 'beacon'
+  const isLedgerView = activeInfoPoint === 'ledger'
+  const isObservatoryView = isBeaconView || isLedgerView
+
   const profile = getProfile()
-  const content = activeInfoPoint && !isProfileView ? getContentById(activeInfoPoint) : null
+  const observatoryData = getObservatoryData()
+  const content = activeInfoPoint && !isProfileView && !isObservatoryView ? getContentById(activeInfoPoint) : null
 
   const handleClose = () => {
     setActiveInfoPoint(null)
   }
 
   // Loading state - only show if we have an active point but no content yet
-  if (activeInfoPoint && !isProfileView && !content) {
+  if (activeInfoPoint && !isProfileView && !isObservatoryView && !content) {
+    return (
+      <div style={{ ...styles.overlay }}>
+        <button style={styles.closeButton} onClick={handleClose}>
+          &times;
+        </button>
+        <p>Loading...</p>
+      </div>
+    )
+  }
+
+  // Loading state for observatory views
+  if (isObservatoryView && !observatoryData) {
     return (
       <div style={{ ...styles.overlay }}>
         <button style={styles.closeButton} onClick={handleClose}>
@@ -237,6 +383,17 @@ export default function InfoPanel() {
       </button>
 
       {isProfileView && profile && <ProfileDisplay profile={profile} />}
+
+      {isBeaconView && observatoryData && (
+        <BeaconDisplay
+          tools={observatoryData.beacon.tools}
+          experience={observatoryData.beacon.experience}
+        />
+      )}
+
+      {isLedgerView && observatoryData && (
+        <LedgerDisplay incidents={observatoryData.ledger.incidents} />
+      )}
 
       {area && (
         <>

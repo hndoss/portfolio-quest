@@ -17,20 +17,27 @@ interface GameStore extends GameState {
   setPaused: (paused: boolean) => void
   setActiveInfoPoint: (infoPointId: string | null) => void
   setQuickTravelOpen: (open: boolean) => void
+
+  // Telescope mode actions
+  enterTelescopeMode: () => void
+  exitTelescopeMode: () => void
+  setFocusedTool: (toolId: string | null) => void
 }
 
 export const useGameStore = create<GameStore>((set) => ({
   // Initial state
-  currentArea: 'central-hall',
-  currentViewpoint: null,
+  currentArea: 'observatory',
+  currentViewpoint: 'observatory-center',
   targetViewpoint: null,
   isTransitioning: false,
   isLoading: true,
   isPaused: false,
   activeInfoPoint: null,
   hoveredHotspot: null,
-  visitedAreas: new Set<AreaId>(['central-hall']),
+  visitedAreas: new Set<AreaId>(['observatory']),
   isQuickTravelOpen: false,
+  telescopeMode: false,
+  focusedTool: null,
 
   // Navigation actions
   setCurrentViewpoint: (viewpointId) =>
@@ -60,4 +67,9 @@ export const useGameStore = create<GameStore>((set) => ({
   setPaused: (paused) => set({ isPaused: paused }),
   setActiveInfoPoint: (infoPointId) => set({ activeInfoPoint: infoPointId }),
   setQuickTravelOpen: (open) => set({ isQuickTravelOpen: open }),
+
+  // Telescope mode actions
+  enterTelescopeMode: () => set({ telescopeMode: true, focusedTool: 'grafana' }),
+  exitTelescopeMode: () => set({ telescopeMode: false, focusedTool: null }),
+  setFocusedTool: (toolId) => set({ focusedTool: toolId }),
 }))

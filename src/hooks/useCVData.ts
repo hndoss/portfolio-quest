@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import type { CVData, Area, SkillItem, Project, Profile } from '../types/cv'
+import type { CVData, Area, SkillItem, Project, Profile, ObservatoryData, ObservabilityTool } from '../types/cv'
 
 export function useCVData() {
   const [cvData, setCVData] = useState<CVData | null>(null)
@@ -71,6 +71,27 @@ export function useCVData() {
     return cvData.profile
   }, [cvData])
 
+  // Get observatory data
+  const getObservatoryData = useCallback((): ObservatoryData | null => {
+    if (!cvData) return null
+    return cvData.observatory || null
+  }, [cvData])
+
+  // Get telescope tool by ID
+  const getTelescopeTool = useCallback(
+    (toolId: string): ObservabilityTool | null => {
+      if (!cvData?.observatory) return null
+      return cvData.observatory.telescope.tools.find((t) => t.id === toolId) || null
+    },
+    [cvData]
+  )
+
+  // Get all telescope tools
+  const getTelescopeTools = useCallback((): ObservabilityTool[] => {
+    if (!cvData?.observatory) return []
+    return cvData.observatory.telescope.tools
+  }, [cvData])
+
   return {
     cvData,
     isLoading,
@@ -79,5 +100,8 @@ export function useCVData() {
     getAreaById,
     getProjectById,
     getProfile,
+    getObservatoryData,
+    getTelescopeTool,
+    getTelescopeTools,
   }
 }

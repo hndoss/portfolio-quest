@@ -15,6 +15,8 @@ describe('gameStore', () => {
       hoveredHotspot: null,
       visitedAreas: new Set(['central-hall']),
       isQuickTravelOpen: false,
+      telescopeMode: false,
+      focusedTool: null,
     })
   })
 
@@ -207,6 +209,82 @@ describe('gameStore', () => {
         useGameStore.getState().setQuickTravelOpen(false)
         expect(useGameStore.getState().isQuickTravelOpen).toBe(false)
       })
+    })
+  })
+
+  describe('telescope mode', () => {
+    describe('initial state', () => {
+      it('should not be in telescope mode initially', () => {
+        expect(useGameStore.getState().telescopeMode).toBe(false)
+      })
+
+      it('should have no focused tool initially', () => {
+        expect(useGameStore.getState().focusedTool).toBeNull()
+      })
+    })
+
+    describe('enterTelescopeMode', () => {
+      it('should set telescopeMode to true', () => {
+        useGameStore.getState().enterTelescopeMode()
+        expect(useGameStore.getState().telescopeMode).toBe(true)
+      })
+
+      it('should set first tool as focused when entering', () => {
+        useGameStore.getState().enterTelescopeMode()
+        expect(useGameStore.getState().focusedTool).toBe('grafana')
+      })
+    })
+
+    describe('exitTelescopeMode', () => {
+      it('should set telescopeMode to false', () => {
+        useGameStore.setState({ telescopeMode: true, focusedTool: 'grafana' })
+        useGameStore.getState().exitTelescopeMode()
+        expect(useGameStore.getState().telescopeMode).toBe(false)
+      })
+
+      it('should clear focused tool when exiting', () => {
+        useGameStore.setState({ telescopeMode: true, focusedTool: 'grafana' })
+        useGameStore.getState().exitTelescopeMode()
+        expect(useGameStore.getState().focusedTool).toBeNull()
+      })
+    })
+
+    describe('setFocusedTool', () => {
+      it('should set focused tool', () => {
+        useGameStore.setState({ telescopeMode: true })
+        useGameStore.getState().setFocusedTool('prometheus')
+        expect(useGameStore.getState().focusedTool).toBe('prometheus')
+      })
+
+      it('should allow changing focused tool', () => {
+        useGameStore.setState({ telescopeMode: true, focusedTool: 'grafana' })
+        useGameStore.getState().setFocusedTool('datadog')
+        expect(useGameStore.getState().focusedTool).toBe('datadog')
+      })
+
+      it('should allow clearing focused tool', () => {
+        useGameStore.setState({ telescopeMode: true, focusedTool: 'grafana' })
+        useGameStore.getState().setFocusedTool(null)
+        expect(useGameStore.getState().focusedTool).toBeNull()
+      })
+    })
+  })
+
+  describe('observatory containers (beacon/ledger)', () => {
+    it('should open beacon overlay via setActiveInfoPoint', () => {
+      useGameStore.getState().setActiveInfoPoint('beacon')
+      expect(useGameStore.getState().activeInfoPoint).toBe('beacon')
+    })
+
+    it('should open ledger overlay via setActiveInfoPoint', () => {
+      useGameStore.getState().setActiveInfoPoint('ledger')
+      expect(useGameStore.getState().activeInfoPoint).toBe('ledger')
+    })
+
+    it('should close overlay by setting activeInfoPoint to null', () => {
+      useGameStore.getState().setActiveInfoPoint('beacon')
+      useGameStore.getState().setActiveInfoPoint(null)
+      expect(useGameStore.getState().activeInfoPoint).toBeNull()
     })
   })
 })

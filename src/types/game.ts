@@ -4,7 +4,7 @@ export type AreaId =
   | 'forge'
   | 'pipelines'
   | 'treasury'
-  | 'watchtower'
+  | 'observatory'
 
 export interface GameState {
   currentArea: AreaId
@@ -17,4 +17,7 @@ export interface GameState {
   hoveredHotspot: string | null
   visitedAreas: Set<AreaId>
   isQuickTravelOpen: boolean
+  // Telescope mode (Observatory)
+  telescopeMode: boolean
+  focusedTool: string | null
 }
