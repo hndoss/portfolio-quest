@@ -2,6 +2,14 @@ export interface Profile {
   name: string
   title: string
   summary: string
+  /**
+   * Career length in years, shown by the hourglass.
+   *
+   * Stated rather than derived from `max(item.years)` across the areas: the
+   * longest-held skill and the length of a career are different facts, and
+   * they only coincide by accident.
+   */
+  yearsExperience?: number
   contact: {
     email?: string
     linkedin?: string
