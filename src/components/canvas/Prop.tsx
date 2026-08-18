@@ -1,0 +1,136 @@
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
+import { useFrame, useThree } from '@react-three/fiber'
+import { useGLTF } from '@react-three/drei'
+import { MathUtils } from 'three'
+import type { Group, Mesh, Object3D } from 'three'
+import { beginHover, endHover } from './hoverCursor'
+
+export interface PropProps {
+  /** Path under public/, e.g. "/models/props/desk-bell.glb" */
+  url: string
+  position?: [number, number, number]
+  rotation?: [number, number, number]
+  scale?: number
+  /** Makes the prop hoverable and clickable, with a press animation. */
+  onSelect?: () => void
+}
+
+// Cartoon timing: a big, fast pop rather than a gentle ease. Subtle motion
+// reads as sluggish; exaggeration is what makes it feel responsive.
+const HOVER_SCALE = 1.14
+const HOVER_SNAP = 22
+const PRESS_DURATION = 0.4
+const PRESS_SQUASH = 0.3
+
+function PropModel({ url, position, rotation, scale = 1, onSelect }: PropProps) {
+  const { scene } = useGLTF(url)
+  const group = useRef<Group>(null)
+  const pressedAt = useRef<number | null>(null)
+  const current = useRef(scale)
+  const [hovered, setHovered] = useState(false)
+  // The press animation is measured against the render clock, not the DOM
+  // event timestamp — those are different time bases.
+  const clock = useThree((state) => state.clock)
+
+  const interactive = Boolean(onSelect)
+
+  // useGLTF caches by url and hands back the *same* object every time, so the
+  // scene must be cloned before it can appear in more than one place.
+  const model = useMemo(() => {
+    const clone = scene.clone(true)
+    clone.traverse((child: Object3D) => {
+      if ((child as Mesh).isMesh) {
+        child.castShadow = true
+        child.receiveShadow = true
+      }
+    })
+    return clone
+  }, [scene])
+
+  // Reset the pointer cursor if this unmounts while hovered.
+  useEffect(() => {
+    if (!interactive || !hovered) return
+    beginHover()
+    return endHover
+  }, [interactive, hovered])
+
+  useFrame((state, delta) => {
+    if (!group.current) return
+
+    const target = hovered && interactive ? scale * HOVER_SCALE : scale
+    current.current = MathUtils.damp(current.current, target, HOVER_SNAP, delta)
+
+    let next = current.current
+    if (pressedAt.current !== null) {
+      const t = (state.clock.elapsedTime - pressedAt.current) / PRESS_DURATION
+      if (t >= 1) {
+        pressedAt.current = null
+      } else {
+        // Squash hard on contact, overshoot past rest, then settle. Starting
+        // at cos(0) = 1 means the squash lands on the very first frame, so the
+        // click feels instant instead of ramping up.
+        next *= 1 - PRESS_SQUASH * Math.cos(t * Math.PI * 2.5) * (1 - t) ** 2
+      }
+    }
+    group.current.scale.setScalar(next)
+  })
+
+  return (
+    <group
+      ref={group}
+      position={position}
+      rotation={rotation}
+      onPointerOver={
+        interactive
+          ? (e) => {
+              e.stopPropagation()
+              setHovered(true)
+            }
+          : undefined
+      }
+      onPointerOut={interactive ? () => setHovered(false) : undefined}
+      onClick={
+        interactive
+          ? (e) => {
+              e.stopPropagation()
+              pressedAt.current = clock.elapsedTime
+              onSelect?.()
+            }
+          : undefined
+      }
+    >
+      <primitive object={model} />
+    </group>
+  )
+}
+
+/**
+ * Loads a Blender-authored .glb.
+ *
+ * Each prop gets its own Suspense boundary so a slow asset only delays itself.
+ * A single boundary higher up would gate the whole scene, because every area
+ * in Scene.tsx mounts at once.
+ */
+export default function Prop({
+  url,
+  position = [0, 0, 0],
+  rotation = [0, 0, 0],
+  scale = 1,
+  onSelect,
+}: PropProps) {
+  return (
+    <Suspense fallback={null}>
+      <PropModel
+        url={url}
+        position={position}
+        rotation={rotation}
+        scale={scale}
+        onSelect={onSelect}
+      />
+    </Suspense>
+  )
+}
+
+export function preloadProp(url: string) {
+  useGLTF.preload(url)
+}
