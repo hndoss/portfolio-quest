@@ -1,205 +1,55 @@
 {
-  "startViewpoint": "observatory-center",
+  "startViewpoint": "hall-entrance",
   "viewpoints": [
     {
       "id": "hall-entrance",
       "areaId": "central-hall",
-      "position": { "x": 0, "y": 1.6, "z": 8 },
-      "lookAt": { "x": 0, "y": 1.6, "z": 0 },
-      "hotspots": [
-        {
-          "id": "to-hall-center",
-          "targetViewpoint": "hall-center",
-          "position": { "x": 0, "y": 0.5, "z": 3 },
-          "label": "Walk forward",
-          "icon": "arrow"
-        },
-        {
-          "id": "to-pipelines",
-          "targetViewpoint": "pipelines-entrance",
-          "position": { "x": 0, "y": 0.5, "z": 12 },
-          "label": "Enter the Pipelines",
-          "icon": "stairs"
-        }
-      ],
-      "infoPoints": [
-        {
-          "id": "info-pipelines-banner",
-          "contentId": "pipelines",
-          "position": { "x": 0, "y": 3, "z": 7 },
-          "label": "Pipelines Area"
-        }
-      ]
-    },
-    {
-      "id": "hall-center",
-      "areaId": "central-hall",
-      "position": { "x": 0, "y": 1.6, "z": 0 },
-      "lookAt": { "x": 0, "y": 1.6, "z": -10 },
-      "hotspots": [
-        {
-          "id": "to-hall-entrance",
-          "targetViewpoint": "hall-entrance",
-          "position": { "x": 0, "y": 0.5, "z": 5 },
-          "label": "Go back",
-          "icon": "arrow"
-        },
-        {
-          "id": "to-hall-north",
-          "targetViewpoint": "hall-north",
-          "position": { "x": 0, "y": 0.5, "z": -5 },
-          "label": "Look north (Observatory)",
-          "icon": "door"
-        },
-        {
-          "id": "to-hall-west",
-          "targetViewpoint": "hall-west",
-          "position": { "x": -5, "y": 0.5, "z": 0 },
-          "label": "Look west (Library)",
-          "icon": "door"
-        },
-        {
-          "id": "to-hall-east",
-          "targetViewpoint": "hall-east",
-          "position": { "x": 5, "y": 0.5, "z": 0 },
-          "label": "Look east (Forge)",
-          "icon": "door"
-        }
-      ],
-      "infoPoints": [
-        {
-          "id": "info-profile",
-          "contentId": "profile",
-          "position": { "x": 0, "y": 2.5, "z": 0 },
-          "label": "Meet the Developer"
-        },
-        {
-          "id": "info-about-me",
-          "contentId": "about-me",
-          "position": { "x": -2, "y": 1.5, "z": -2 },
-          "label": "About Me"
-        },
-        {
-          "id": "info-core-expertise",
-          "contentId": "core-expertise",
-          "position": { "x": 2, "y": 1.5, "z": -2 },
-          "label": "Core Expertise"
-        },
-        {
-          "id": "info-philosophy",
-          "contentId": "philosophy",
-          "position": { "x": 0, "y": 1.5, "z": 2 },
-          "label": "Engineering Philosophy"
-        }
-      ]
-    },
-    {
-      "id": "hall-north",
-      "areaId": "central-hall",
-      "position": { "x": 0, "y": 1.6, "z": -6 },
-      "lookAt": { "x": 0, "y": 1.6, "z": -15 },
-      "hotspots": [
-        {
-          "id": "to-hall-center-from-north",
-          "targetViewpoint": "hall-center",
-          "position": { "x": 0, "y": 0.5, "z": -2 },
-          "label": "Go back",
-          "icon": "arrow"
-        },
-        {
-          "id": "to-observatory",
-          "targetViewpoint": "observatory-entrance",
-          "position": { "x": 0, "y": 1, "z": -9 },
-          "label": "Enter the Observatory",
-          "icon": "stairs"
-        }
-      ],
-      "infoPoints": [
-        {
-          "id": "info-observatory-banner",
-          "contentId": "observatory",
-          "position": { "x": 0, "y": 3, "z": -7 },
-          "label": "Monitoring & Observability"
-        }
-      ]
-    },
-    {
-      "id": "hall-west",
-      "areaId": "central-hall",
-      "position": { "x": -6, "y": 1.6, "z": 0 },
-      "lookAt": { "x": -15, "y": 1.6, "z": 0 },
-      "hotspots": [
-        {
-          "id": "to-hall-center-from-west",
-          "targetViewpoint": "hall-center",
-          "position": { "x": -2, "y": 0.5, "z": 0 },
-          "label": "Go back",
-          "icon": "arrow"
-        },
-        {
-          "id": "to-library",
-          "targetViewpoint": "library-entrance",
-          "position": { "x": -9, "y": 1, "z": 0 },
-          "label": "Enter the Library",
-          "icon": "door"
-        }
-      ],
-      "infoPoints": [
-        {
-          "id": "info-library-banner",
-          "contentId": "library",
-          "position": { "x": -7, "y": 3, "z": 0 },
-          "label": "Documentation & Knowledge"
-        }
-      ]
-    },
-    {
-      "id": "hall-east",
-      "areaId": "central-hall",
-      "position": { "x": 6, "y": 1.6, "z": 0 },
-      "lookAt": { "x": 15, "y": 1.6, "z": 0 },
-      "hotspots": [
-        {
-          "id": "to-hall-center-from-east",
-          "targetViewpoint": "hall-center",
-          "position": { "x": 2, "y": 0.5, "z": 0 },
-          "label": "Go back",
-          "icon": "arrow"
-        },
-        {
-          "id": "to-forge",
-          "targetViewpoint": "forge-entrance",
-          "position": { "x": 9, "y": 1, "z": 0 },
-          "label": "Enter the Forge",
-          "icon": "door"
-        }
-      ],
-      "infoPoints": [
-        {
-          "id": "info-forge-banner",
-          "contentId": "forge",
-          "position": { "x": 7, "y": 3, "z": 0 },
-          "label": "Development Tools"
-        }
-      ]
+      "position": {
+        "x": 0,
+        "y": 1.6,
+        "z": 5.2
+      },
+      "lookAt": {
+        "x": 0,
+        "y": 2.2,
+        "z": -5.5
+      },
+      "hotspots": [],
+      "infoPoints": []
     },
     {
       "id": "library-entrance",
       "areaId": "library",
-      "position": { "x": -18, "y": 1.6, "z": 0 },
-      "lookAt": { "x": -28, "y": 1.5, "z": 0 },
+      "position": {
+        "x": -18,
+        "y": 1.6,
+        "z": 0
+      },
+      "lookAt": {
+        "x": -28,
+        "y": 1.5,
+        "z": 0
+      },
       "hotspots": [
         {
           "id": "back-to-hall-from-library",
-          "targetViewpoint": "hall-west",
-          "position": { "x": -12, "y": 1, "z": 0 },
+          "targetViewpoint": "hall-entrance",
+          "position": {
+            "x": -12,
+            "y": 1,
+            "z": 0
+          },
           "label": "Return to Central Hall",
           "icon": "door"
         },
         {
           "id": "to-library-center",
           "targetViewpoint": "library-center",
-          "position": { "x": -23, "y": 0.5, "z": 0 },
+          "position": {
+            "x": -23,
+            "y": 0.5,
+            "z": 0
+          },
           "label": "Walk into the Library",
           "icon": "arrow"
         }
@@ -209,20 +59,36 @@
     {
       "id": "library-center",
       "areaId": "library",
-      "position": { "x": -25, "y": 1.6, "z": 2 },
-      "lookAt": { "x": -30, "y": 1.6, "z": 0 },
+      "position": {
+        "x": -25,
+        "y": 1.6,
+        "z": 2
+      },
+      "lookAt": {
+        "x": -30,
+        "y": 1.6,
+        "z": 0
+      },
       "hotspots": [
         {
           "id": "to-library-entrance-from-center",
           "targetViewpoint": "library-entrance",
-          "position": { "x": -20, "y": 0.5, "z": 0 },
+          "position": {
+            "x": -20,
+            "y": 0.5,
+            "z": 0
+          },
           "label": "Go to entrance",
           "icon": "arrow"
         },
         {
           "id": "to-library-shelves",
           "targetViewpoint": "library-shelves",
-          "position": { "x": -30, "y": 0.5, "z": 0 },
+          "position": {
+            "x": -30,
+            "y": 0.5,
+            "z": 0
+          },
           "label": "Examine the shelves",
           "icon": "arrow"
         }
@@ -231,7 +97,11 @@
         {
           "id": "info-library-overview",
           "contentId": "library",
-          "position": { "x": -25, "y": 2.2, "z": -2 },
+          "position": {
+            "x": -25,
+            "y": 2.2,
+            "z": -2
+          },
           "label": "Documentation Skills"
         }
       ]
@@ -239,13 +109,25 @@
     {
       "id": "library-shelves",
       "areaId": "library",
-      "position": { "x": -30, "y": 1.6, "z": 0 },
-      "lookAt": { "x": -32, "y": 1.8, "z": 0 },
+      "position": {
+        "x": -30,
+        "y": 1.6,
+        "z": 0
+      },
+      "lookAt": {
+        "x": -32,
+        "y": 1.8,
+        "z": 0
+      },
       "hotspots": [
         {
           "id": "to-library-center-from-shelves",
           "targetViewpoint": "library-center",
-          "position": { "x": -26, "y": 0.5, "z": 0 },
+          "position": {
+            "x": -26,
+            "y": 0.5,
+            "z": 0
+          },
           "label": "Go back",
           "icon": "arrow"
         }
@@ -254,13 +136,21 @@
         {
           "id": "info-technical-writing",
           "contentId": "technical-writing",
-          "position": { "x": -32, "y": 2, "z": -3 },
+          "position": {
+            "x": -32,
+            "y": 2,
+            "z": -3
+          },
           "label": "Technical Writing"
         },
         {
           "id": "info-api-docs",
           "contentId": "api-docs",
-          "position": { "x": -32, "y": 2, "z": 3 },
+          "position": {
+            "x": -32,
+            "y": 2,
+            "z": 3
+          },
           "label": "API Documentation"
         }
       ]
@@ -268,20 +158,36 @@
     {
       "id": "forge-entrance",
       "areaId": "forge",
-      "position": { "x": 18, "y": 1.6, "z": 0 },
-      "lookAt": { "x": 28, "y": 1.5, "z": 0 },
+      "position": {
+        "x": 18,
+        "y": 1.6,
+        "z": 0
+      },
+      "lookAt": {
+        "x": 28,
+        "y": 1.5,
+        "z": 0
+      },
       "hotspots": [
         {
           "id": "back-to-hall-from-forge",
-          "targetViewpoint": "hall-east",
-          "position": { "x": 12, "y": 1, "z": 0 },
+          "targetViewpoint": "hall-entrance",
+          "position": {
+            "x": 12,
+            "y": 1,
+            "z": 0
+          },
           "label": "Return to Central Hall",
           "icon": "door"
         },
         {
           "id": "to-forge-center",
           "targetViewpoint": "forge-center",
-          "position": { "x": 23, "y": 0.5, "z": 0 },
+          "position": {
+            "x": 23,
+            "y": 0.5,
+            "z": 0
+          },
           "label": "Approach the forge",
           "icon": "arrow"
         }
@@ -291,20 +197,36 @@
     {
       "id": "forge-center",
       "areaId": "forge",
-      "position": { "x": 25, "y": 1.6, "z": 2 },
-      "lookAt": { "x": 25, "y": 1.6, "z": -5 },
+      "position": {
+        "x": 25,
+        "y": 1.6,
+        "z": 2
+      },
+      "lookAt": {
+        "x": 25,
+        "y": 1.6,
+        "z": -5
+      },
       "hotspots": [
         {
           "id": "to-forge-entrance-from-center",
           "targetViewpoint": "forge-entrance",
-          "position": { "x": 20, "y": 0.5, "z": 0 },
+          "position": {
+            "x": 20,
+            "y": 0.5,
+            "z": 0
+          },
           "label": "Go to entrance",
           "icon": "arrow"
         },
         {
           "id": "to-forge-anvils",
           "targetViewpoint": "forge-anvils",
-          "position": { "x": 25, "y": 0.5, "z": -3 },
+          "position": {
+            "x": 25,
+            "y": 0.5,
+            "z": -3
+          },
           "label": "Examine the anvils",
           "icon": "arrow"
         }
@@ -313,7 +235,11 @@
         {
           "id": "info-forge-overview",
           "contentId": "forge",
-          "position": { "x": 25, "y": 2.2, "z": -2 },
+          "position": {
+            "x": 25,
+            "y": 2.2,
+            "z": -2
+          },
           "label": "Development Tools"
         }
       ]
@@ -321,13 +247,25 @@
     {
       "id": "forge-anvils",
       "areaId": "forge",
-      "position": { "x": 25, "y": 1.6, "z": -4 },
-      "lookAt": { "x": 25, "y": 1.2, "z": -6 },
+      "position": {
+        "x": 25,
+        "y": 1.6,
+        "z": -4
+      },
+      "lookAt": {
+        "x": 25,
+        "y": 1.2,
+        "z": -6
+      },
       "hotspots": [
         {
           "id": "to-forge-center-from-anvils",
           "targetViewpoint": "forge-center",
-          "position": { "x": 25, "y": 0.5, "z": 0 },
+          "position": {
+            "x": 25,
+            "y": 0.5,
+            "z": 0
+          },
           "label": "Go back",
           "icon": "arrow"
         }
@@ -336,13 +274,21 @@
         {
           "id": "info-build-tools",
           "contentId": "build-tools",
-          "position": { "x": 22, "y": 1.8, "z": -5 },
+          "position": {
+            "x": 22,
+            "y": 1.8,
+            "z": -5
+          },
           "label": "Build Tools"
         },
         {
           "id": "info-testing",
           "contentId": "testing",
-          "position": { "x": 28, "y": 1.8, "z": -5 },
+          "position": {
+            "x": 28,
+            "y": 1.8,
+            "z": -5
+          },
           "label": "Testing Frameworks"
         }
       ]
@@ -350,20 +296,36 @@
     {
       "id": "pipelines-entrance",
       "areaId": "pipelines",
-      "position": { "x": 0, "y": 1.6, "z": 22 },
-      "lookAt": { "x": 0, "y": 1.5, "z": 30 },
+      "position": {
+        "x": 0,
+        "y": 1.6,
+        "z": 22
+      },
+      "lookAt": {
+        "x": 0,
+        "y": 1.5,
+        "z": 30
+      },
       "hotspots": [
         {
           "id": "back-to-hall-from-pipelines",
           "targetViewpoint": "hall-entrance",
-          "position": { "x": 0, "y": 1, "z": 15 },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "z": 15
+          },
           "label": "Return to Central Hall",
           "icon": "stairs"
         },
         {
           "id": "to-pipelines-center",
           "targetViewpoint": "pipelines-center",
-          "position": { "x": 0, "y": 0.5, "z": 28 },
+          "position": {
+            "x": 0,
+            "y": 0.5,
+            "z": 28
+          },
           "label": "Walk deeper",
           "icon": "arrow"
         }
@@ -373,27 +335,47 @@
     {
       "id": "pipelines-center",
       "areaId": "pipelines",
-      "position": { "x": 0, "y": 1.6, "z": 30 },
-      "lookAt": { "x": 0, "y": 1.6, "z": 35 },
+      "position": {
+        "x": 0,
+        "y": 1.6,
+        "z": 30
+      },
+      "lookAt": {
+        "x": 0,
+        "y": 1.6,
+        "z": 35
+      },
       "hotspots": [
         {
           "id": "to-pipelines-entrance-from-center",
           "targetViewpoint": "pipelines-entrance",
-          "position": { "x": 0, "y": 0.5, "z": 24 },
+          "position": {
+            "x": 0,
+            "y": 0.5,
+            "z": 24
+          },
           "label": "Go to entrance",
           "icon": "arrow"
         },
         {
           "id": "to-pipelines-control",
           "targetViewpoint": "pipelines-control",
-          "position": { "x": 0, "y": 0.5, "z": 36 },
+          "position": {
+            "x": 0,
+            "y": 0.5,
+            "z": 36
+          },
           "label": "Control room",
           "icon": "arrow"
         },
         {
           "id": "to-treasury",
           "targetViewpoint": "treasury-entrance",
-          "position": { "x": 0, "y": 1, "z": 42 },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "z": 42
+          },
           "label": "Enter the Treasury",
           "icon": "door"
         }
@@ -402,7 +384,11 @@
         {
           "id": "info-pipelines-overview",
           "contentId": "pipelines",
-          "position": { "x": 0, "y": 2.2, "z": 32 },
+          "position": {
+            "x": 0,
+            "y": 2.2,
+            "z": 32
+          },
           "label": "CI/CD Automation"
         }
       ]
@@ -410,13 +396,25 @@
     {
       "id": "pipelines-control",
       "areaId": "pipelines",
-      "position": { "x": 0, "y": 1.6, "z": 36 },
-      "lookAt": { "x": 2, "y": 1.5, "z": 36 },
+      "position": {
+        "x": 0,
+        "y": 1.6,
+        "z": 36
+      },
+      "lookAt": {
+        "x": 2,
+        "y": 1.5,
+        "z": 36
+      },
       "hotspots": [
         {
           "id": "to-pipelines-center-from-control",
           "targetViewpoint": "pipelines-center",
-          "position": { "x": 0, "y": 0.5, "z": 32 },
+          "position": {
+            "x": 0,
+            "y": 0.5,
+            "z": 32
+          },
           "label": "Go back",
           "icon": "arrow"
         }
@@ -425,13 +423,21 @@
         {
           "id": "info-github-actions",
           "contentId": "github-actions",
-          "position": { "x": -2, "y": 1.8, "z": 36 },
+          "position": {
+            "x": -2,
+            "y": 1.8,
+            "z": 36
+          },
           "label": "GitHub Actions"
         },
         {
           "id": "info-docker",
           "contentId": "docker",
-          "position": { "x": 2, "y": 1.8, "z": 36 },
+          "position": {
+            "x": 2,
+            "y": 1.8,
+            "z": 36
+          },
           "label": "Docker & Containers"
         }
       ]
@@ -439,20 +445,36 @@
     {
       "id": "treasury-entrance",
       "areaId": "treasury",
-      "position": { "x": 0, "y": 1.6, "z": 50 },
-      "lookAt": { "x": 0, "y": 1.5, "z": 58 },
+      "position": {
+        "x": 0,
+        "y": 1.6,
+        "z": 50
+      },
+      "lookAt": {
+        "x": 0,
+        "y": 1.5,
+        "z": 58
+      },
       "hotspots": [
         {
           "id": "back-to-pipelines-from-treasury",
           "targetViewpoint": "pipelines-center",
-          "position": { "x": 0, "y": 1, "z": 45 },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "z": 45
+          },
           "label": "Return to Pipelines",
           "icon": "door"
         },
         {
           "id": "to-treasury-center",
           "targetViewpoint": "treasury-center",
-          "position": { "x": 0, "y": 0.5, "z": 55 },
+          "position": {
+            "x": 0,
+            "y": 0.5,
+            "z": 55
+          },
           "label": "Enter the vault",
           "icon": "arrow"
         }
@@ -462,20 +484,36 @@
     {
       "id": "treasury-center",
       "areaId": "treasury",
-      "position": { "x": 0, "y": 1.6, "z": 55 },
-      "lookAt": { "x": 0, "y": 1.6, "z": 60 },
+      "position": {
+        "x": 0,
+        "y": 1.6,
+        "z": 55
+      },
+      "lookAt": {
+        "x": 0,
+        "y": 1.6,
+        "z": 60
+      },
       "hotspots": [
         {
           "id": "to-treasury-entrance-from-center",
           "targetViewpoint": "treasury-entrance",
-          "position": { "x": 0, "y": 0.5, "z": 50 },
+          "position": {
+            "x": 0,
+            "y": 0.5,
+            "z": 50
+          },
           "label": "Go to entrance",
           "icon": "arrow"
         },
         {
           "id": "to-treasury-vault",
           "targetViewpoint": "treasury-vault",
-          "position": { "x": 0, "y": 0.5, "z": 60 },
+          "position": {
+            "x": 0,
+            "y": 0.5,
+            "z": 60
+          },
           "label": "Approach the vault",
           "icon": "arrow"
         }
@@ -484,7 +522,11 @@
         {
           "id": "info-treasury-overview",
           "contentId": "treasury",
-          "position": { "x": 0, "y": 2.2, "z": 53 },
+          "position": {
+            "x": 0,
+            "y": 2.2,
+            "z": 53
+          },
           "label": "Security Skills"
         }
       ]
@@ -492,13 +534,25 @@
     {
       "id": "treasury-vault",
       "areaId": "treasury",
-      "position": { "x": 0, "y": 1.6, "z": 60 },
-      "lookAt": { "x": 0, "y": 1.8, "z": 62 },
+      "position": {
+        "x": 0,
+        "y": 1.6,
+        "z": 60
+      },
+      "lookAt": {
+        "x": 0,
+        "y": 1.8,
+        "z": 62
+      },
       "hotspots": [
         {
           "id": "to-treasury-center-from-vault",
           "targetViewpoint": "treasury-center",
-          "position": { "x": 0, "y": 0.5, "z": 56 },
+          "position": {
+            "x": 0,
+            "y": 0.5,
+            "z": 56
+          },
           "label": "Go back",
           "icon": "arrow"
         }
@@ -507,13 +561,21 @@
         {
           "id": "info-authentication",
           "contentId": "authentication",
-          "position": { "x": -2, "y": 1.8, "z": 61 },
+          "position": {
+            "x": -2,
+            "y": 1.8,
+            "z": 61
+          },
           "label": "Authentication"
         },
         {
           "id": "info-encryption",
           "contentId": "encryption",
-          "position": { "x": 2, "y": 1.8, "z": 61 },
+          "position": {
+            "x": 2,
+            "y": 1.8,
+            "z": 61
+          },
           "label": "Encryption"
         }
       ]
@@ -521,20 +583,36 @@
     {
       "id": "observatory-entrance",
       "areaId": "observatory",
-      "position": { "x": 0, "y": 2.2, "z": -24 },
-      "lookAt": { "x": 0, "y": 1.5, "z": -31 },
+      "position": {
+        "x": 0,
+        "y": 2.2,
+        "z": -24
+      },
+      "lookAt": {
+        "x": 0,
+        "y": 1.5,
+        "z": -31
+      },
       "hotspots": [
         {
           "id": "back-to-hall-from-observatory",
           "targetViewpoint": "hall-north",
-          "position": { "x": 0, "y": 1, "z": -18 },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "z": -18
+          },
           "label": "Return to Central Hall",
           "icon": "stairs"
         },
         {
           "id": "to-observatory-center",
           "targetViewpoint": "observatory-center",
-          "position": { "x": 0, "y": 0.5, "z": -28 },
+          "position": {
+            "x": 0,
+            "y": 0.5,
+            "z": -28
+          },
           "label": "Enter the observatory",
           "icon": "arrow"
         }
@@ -544,20 +622,36 @@
     {
       "id": "observatory-center",
       "areaId": "observatory",
-      "position": { "x": 0, "y": 2.8, "z": -26 },
-      "lookAt": { "x": 0, "y": 1.5, "z": -31.5 },
+      "position": {
+        "x": 0,
+        "y": 2.8,
+        "z": -26
+      },
+      "lookAt": {
+        "x": 0,
+        "y": 1.5,
+        "z": -31.5
+      },
       "hotspots": [
         {
           "id": "to-observatory-entrance-from-center",
           "targetViewpoint": "observatory-entrance",
-          "position": { "x": 0, "y": 0.5, "z": -24 },
+          "position": {
+            "x": 0,
+            "y": 0.5,
+            "z": -24
+          },
           "label": "Go to entrance",
           "icon": "arrow"
         },
         {
           "id": "to-observatory-telescope",
           "targetViewpoint": "observatory-telescope",
-          "position": { "x": 0, "y": 1.2, "z": -31 },
+          "position": {
+            "x": 0,
+            "y": 1.2,
+            "z": -31
+          },
           "label": "Approach the telescope",
           "icon": "arrow"
         }
@@ -566,7 +660,11 @@
         {
           "id": "info-observatory-overview",
           "contentId": "observatory",
-          "position": { "x": -3, "y": 2.5, "z": -28 },
+          "position": {
+            "x": -3,
+            "y": 2.5,
+            "z": -28
+          },
           "label": "Monitoring & Observability"
         }
       ]
@@ -574,13 +672,25 @@
     {
       "id": "observatory-telescope",
       "areaId": "observatory",
-      "position": { "x": 2, "y": 1.8, "z": -29 },
-      "lookAt": { "x": 0, "y": 1.5, "z": -31.5 },
+      "position": {
+        "x": 2,
+        "y": 1.8,
+        "z": -29
+      },
+      "lookAt": {
+        "x": 0,
+        "y": 1.5,
+        "z": -31.5
+      },
       "hotspots": [
         {
           "id": "to-observatory-center-from-telescope",
           "targetViewpoint": "observatory-center",
-          "position": { "x": 0, "y": 0.5, "z": -26 },
+          "position": {
+            "x": 0,
+            "y": 0.5,
+            "z": -26
+          },
           "label": "Step back",
           "icon": "arrow"
         }
@@ -589,13 +699,21 @@
         {
           "id": "info-logging",
           "contentId": "logging",
-          "position": { "x": -4, "y": 2.5, "z": -30 },
+          "position": {
+            "x": -4,
+            "y": 2.5,
+            "z": -30
+          },
           "label": "Logging Systems"
         },
         {
           "id": "info-metrics",
           "contentId": "metrics",
-          "position": { "x": 4, "y": 2.5, "z": -30 },
+          "position": {
+            "x": 4,
+            "y": 2.5,
+            "z": -30
+          },
           "label": "Metrics & Dashboards"
         }
       ]
