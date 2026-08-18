@@ -15,7 +15,11 @@ export default function InfoPoint({ infoPoint }: InfoPointProps) {
   const outerRef = useRef<THREE.Mesh>(null)
   const setActiveInfoPoint = useGameStore((state) => state.setActiveInfoPoint)
   const activeInfoPoint = useGameStore((state) => state.activeInfoPoint)
-  const isActive = activeInfoPoint === infoPoint.id
+  // `contentId`, not `id`. The store holds whatever key `InfoPanel` looks up
+  // in cv.json, and cv.json is keyed by content — `library`, not
+  // `info-library-overview`. Dispatching the ref's own id meant every panel in
+  // the game resolved to null and sat on "Loading..." forever.
+  const isActive = activeInfoPoint === infoPoint.contentId
 
   // Floating and pulsing animation
   useFrame((state) => {
@@ -39,7 +43,7 @@ export default function InfoPoint({ infoPoint }: InfoPointProps) {
     if (isActive) {
       setActiveInfoPoint(null)
     } else {
-      setActiveInfoPoint(infoPoint.id)
+      setActiveInfoPoint(infoPoint.contentId)
     }
   }
 
