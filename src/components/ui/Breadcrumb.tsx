@@ -12,10 +12,7 @@ const areaNames: Record<string, string> = {
 
 const viewpointLabels: Record<string, string> = {
   'hall-entrance': 'Entrance',
-  'hall-center': 'Center',
-  'hall-north': 'North',
-  'hall-west': 'West Wing',
-  'hall-east': 'East Wing',
+  'hall-desk': 'Reception',
   'library-entrance': 'Entrance',
   'library-center': 'Reading Area',
   'library-shelves': 'Shelves',

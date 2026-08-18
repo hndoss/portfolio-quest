@@ -39,3 +39,21 @@ describe('castle map', () => {
     expect([...MAPPED_AREA_IDS].sort()).toEqual(AREAS.map((a) => a.id).sort())
   })
 })
+
+describe('central hall navigation', () => {
+  /**
+   * The hall's four hotspots were its only exits, and they are gone: area
+   * travel belongs to the castle map now, and orbs only move you within an
+   * area. The hall has no second viewpoint, so it has no orbs at all.
+   */
+  it('has no hotspots, because the map owns travel between areas', () => {
+    const hall = nav.viewpoints.filter((v) => v.areaId === 'central-hall')
+    expect(hall).toHaveLength(1)
+    expect(hall[0].hotspots).toEqual([])
+  })
+
+  it('leaves within-area hotspots alone in the other rooms', () => {
+    const library = nav.viewpoints.find((v) => v.id === 'library-center')
+    expect(library?.hotspots.length).toBeGreaterThan(0)
+  })
+})
