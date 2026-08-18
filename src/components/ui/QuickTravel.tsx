@@ -1,15 +1,7 @@
 import { useGameStore } from '../../stores/gameStore'
 import { useNavigation } from '../../hooks/useNavigation'
+import { AREAS } from '../../data/areas'
 import type { AreaId } from '../../types/game'
-
-const areaData: { id: AreaId; name: string; defaultViewpoint: string }[] = [
-  { id: 'central-hall', name: 'Central Hall', defaultViewpoint: 'hall-center' },
-  { id: 'library', name: 'The Library', defaultViewpoint: 'library-entrance' },
-  { id: 'forge', name: 'The Forge', defaultViewpoint: 'forge-entrance' },
-  { id: 'pipelines', name: 'The Pipelines', defaultViewpoint: 'pipelines-entrance' },
-  { id: 'treasury', name: 'The Treasury', defaultViewpoint: 'treasury-entrance' },
-  { id: 'observatory', name: 'The Observatory', defaultViewpoint: 'observatory-entrance' },
-]
 
 const styles: Record<string, React.CSSProperties> = {
   button: {
@@ -163,7 +155,7 @@ export default function QuickTravel() {
       <div style={styles.menu} onClick={(e) => e.stopPropagation()}>
         <h2 style={styles.title}>Quick Travel</h2>
         <div style={styles.areaList}>
-          {areaData.map((area) => {
+          {AREAS.map((area) => {
             const isVisited = visitedAreas.has(area.id)
             const isCurrent = currentArea === area.id
             const isLocked = !isVisited

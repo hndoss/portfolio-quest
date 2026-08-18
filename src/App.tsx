@@ -6,6 +6,7 @@ import Scene from './components/canvas/Scene'
 import { useGameStore } from './stores/gameStore'
 import LoadingScreen from './components/ui/LoadingScreen'
 import HUD from './components/ui/HUD'
+import CastleMap from './components/ui/CastleMap'
 import TransitionOverlay from './components/ui/TransitionOverlay'
 import InfoPanel from './components/ui/InfoPanel'
 import QuickTravel from './components/ui/QuickTravel'
@@ -88,6 +89,7 @@ function App() {
         {import.meta.env.DEV && <Stats />}
       </Canvas>
       <HUD />
+      <CastleMap />
       <TransitionOverlay />
       <InfoPanel />
       <QuickTravel />

@@ -12,14 +12,6 @@ const styles: Record<string, React.CSSProperties> = {
     zIndex: 100,
     textShadow: '0 2px 4px rgba(0,0,0,0.5)',
   },
-  controls: {
-    position: 'fixed',
-    bottom: '1rem',
-    left: '1rem',
-    color: '#aaa',
-    fontSize: '0.875rem',
-    textShadow: '0 1px 2px rgba(0,0,0,0.5)',
-  },
   tooltip: {
     position: 'fixed',
     bottom: '3rem',
@@ -51,7 +43,9 @@ export default function HUD() {
       <div style={styles.container}>
         <Breadcrumb />
       </div>
-      <div style={styles.controls}>Click on glowing orbs to navigate</div>
+      {/* The "click on glowing orbs to navigate" hint is gone with them. It sat
+          at bottom-left, which is where the castle map lives now, and it was no
+          longer true: between areas you use the map. */}
       {hotspotLabel && <div style={styles.tooltip}>{hotspotLabel}</div>}
     </>
   )
