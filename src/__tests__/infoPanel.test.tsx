@@ -38,7 +38,10 @@ describe('InfoPanel', () => {
     render(<InfoPanel />)
 
     expect(await screen.findByRole('dialog')).toBeInTheDocument()
-    expect(screen.getByText('Central Hall')).toBeInTheDocument()
+    // findBy, not getBy: the dialog mounts as soon as an info point is set,
+    // but its heading is the "…" placeholder until the CV fetch resolves.
+    // Awaiting the dialog alone raced that fetch and failed ~3 runs in 5.
+    expect(await screen.findByText('Central Hall')).toBeInTheDocument()
     expect(screen.getByText('About Me')).toBeInTheDocument()
   })
 
@@ -81,7 +84,9 @@ describe('InfoPanel', () => {
     render(<InfoPanel />)
 
     await screen.findByRole('dialog')
-    expect(screen.getByText(String(cv.profile.yearsExperience))).toBeInTheDocument()
+    expect(
+      await screen.findByText(String(cv.profile.yearsExperience))
+    ).toBeInTheDocument()
     expect(screen.getByText(/years/i)).toBeInTheDocument()
     expect(screen.getByText(cv.profile.summary)).toBeInTheDocument()
   })
@@ -99,7 +104,9 @@ describe('InfoPanel observatory views', () => {
     render(<InfoPanel />)
 
     expect(await screen.findByText('Signal Beacon')).toBeInTheDocument()
-    expect(screen.getByText('Rotations')).toBeInTheDocument()
+    // The heading comes from FIXED_VIEWS and paints with no data at all, so
+    // it is the fields that have to be awaited.
+    expect(await screen.findByText('Rotations')).toBeInTheDocument()
     expect(
       screen.getByText(cv.observatory.beacon.experience.rotations)
     ).toBeInTheDocument()
@@ -114,6 +121,7 @@ describe('InfoPanel observatory views', () => {
     render(<InfoPanel />)
 
     expect(await screen.findByText('Observation Ledger')).toBeInTheDocument()
+    expect(await screen.findByText('Incident Records')).toBeInTheDocument()
     for (const incident of cv.observatory.ledger.incidents) {
       expect(screen.getByText(incident.summary)).toBeInTheDocument()
     }
