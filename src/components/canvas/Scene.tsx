@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useGameStore } from '../../stores/gameStore'
 import { useNavigation } from '../../hooks/useNavigation'
 import CameraController from './CameraController'
@@ -14,8 +14,29 @@ import Observatory from './areas/Observatory'
 
 export default function Scene() {
   const setLoading = useGameStore((state) => state.setLoading)
+  const targetViewpoint = useGameStore((state) => state.targetViewpoint)
   const { viewpoints, currentViewpointData, isLoading: navLoading } = useNavigation()
 
+  // Only the area you are in stays mounted, plus wherever you are flying to.
+  //
+  // This matters far more than it looks: in three.js every light in the scene
+  // compiles into every material's shader regardless of distance, so mounting
+  // all six areas meant paying for 27 point lights on every pixel of whichever
+  // room you were actually looking at. `distance` attenuates a light's
+  // contribution, not its cost. Unmounting is the only way to stop paying.
+  const activeAreas = useMemo(() => {
+    const areaOf = new Map(viewpoints.map((v) => [v.id, v.areaId]))
+    const active = new Set<string>()
+    if (currentViewpointData) active.add(currentViewpointData.areaId)
+    if (targetViewpoint) {
+      const destination = areaOf.get(targetViewpoint)
+      if (destination) active.add(destination)
+    }
+    // Before navigation data resolves there is no current viewpoint yet, and
+    // an empty set would render an empty room on first paint.
+    if (active.size === 0) active.add('central-hall')
+    return active
+  }, [viewpoints, currentViewpointData, targetViewpoint])
 
   useEffect(() => {
     if (!navLoading && viewpoints.length > 0) {
@@ -71,13 +92,13 @@ export default function Scene() {
         <CameraController viewpoints={viewpoints} transitionDuration={1.2} />
       )}
 
-      {/* Environment */}
-      <CentralHall />
-      <Library />
-      <Forge />
-      <Pipelines />
-      <Treasury />
-      <Observatory />
+      {/* Environment — only the active area(s), see activeAreas above */}
+      {activeAreas.has('central-hall') && <CentralHall />}
+      {activeAreas.has('library') && <Library />}
+      {activeAreas.has('forge') && <Forge />}
+      {activeAreas.has('pipelines') && <Pipelines />}
+      {activeAreas.has('treasury') && <Treasury />}
+      {activeAreas.has('observatory') && <Observatory />}
 
       {/* Telescope overlay. Mounted unconditionally, as on main: it reads
           `telescopeMode` from the store and renders nothing when off. */}
