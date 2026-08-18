@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Blender
+*.blend1
+__pycache__/
+assets/blender/_preview.png
+
+# Playwright MCP screenshots
+.playwright-mcp/
