@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "models": "blender --background --python assets/blender/welcome_hall.py && blender --background --python assets/blender/great_hall.py"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
