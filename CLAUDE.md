@@ -1,67 +1,74 @@
-# CLAUDE.md
+# portfolio-quest
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+See `/mnt/shared/development/CLAUDE.md` for global development guidelines.
 
-## Project Overview
+3D portfolio game: React 19 + @react-three/fiber + three.js. Six areas explored
+from fixed camera viewpoints.
 
-Portfolio Quest is a 3D interactive portfolio/resume experience built with React and Three.js. Users explore a castle-themed environment with 6 distinct areas to discover professional experience and skills through a game-like interface.
+## Art direction
 
-## Development Commands
+**Target: League of Legends / Arcane (Fortiche).** Stylised painterly fantasy —
+rich, ornate, warm. *Not* flat cartoon, not toon-shaded, not photoreal.
 
-```bash
-npm run dev          # Start dev server with HMR
-npm run build        # TypeScript compile + Vite production build
-npm run lint         # ESLint checks
-npm run test         # Run tests in watch mode
-npm run test:run     # Run tests once (CI mode)
-npm run test:coverage # Generate coverage report
-```
+Arcane's look is roughly **80% painted texture, 20% geometry**. Adding polygons
+does not move toward it; painted surface detail does. Current state has the
+lighting, palette and post-processing layer done, and no textures at all — that
+is the single biggest remaining gap.
 
-## Architecture
+Palette is Piltover: warm brass and honey against deep teal shadow, strongly
+split warm/cool. No greys — the scene was originally monochrome grey and that
+was the main reason it read as drab.
 
-### Layer Separation
+## Rendering decisions
 
-The app has two rendering layers that share state:
-- **Canvas Layer** (`src/components/canvas/`): React Three Fiber components for 3D scenes
-- **UI Layer** (`src/components/ui/`): DOM-based React components for overlays and HUD
+**Few lights, colour in materials.** Every light in a three.js scene compiles
+into every material's shader regardless of distance — `distance` attenuates a
+light's contribution, not its cost. The scene originally had 27 point lights
+across six areas and ran fragment-bound. Now: ambient + hemisphere + one
+directional key. Glows are **emissive materials**, which are self-lit and cost
+nothing per pixel.
 
-Both layers consume the same Zustand store (`src/stores/gameStore.ts`).
+**Only the active area is mounted** (`Scene.tsx`), plus the destination during a
+camera transition. This is the only way to stop paying for other areas' lights.
 
-### State Management
+**Emissive + bloom.** Things that should read as light sources set
+`toneMapped={false}` and push `emissiveIntensity` above 1; `Bloom` uses
+`luminanceThreshold={1.0}` so exactly those objects glow and nothing else.
 
-Single Zustand store manages all application state:
-- Navigation: current viewpoint, transitions, camera targets
-- Areas: current area, visited areas tracking
-- UI: loading state, paused state, active info point, panels
+**Shadows**: `shadows="soft"` (PCFSoftShadowMap). The directional light needs a
+widened shadow camera — three.js defaults the frustum to ±5 units and the hall
+is 20 across — plus `normalBias` to prevent acne. Keep the light steep; a low
+angle threw raking shadows that sliced the floor into hard wedges.
 
-### Data Sources
+**Light shafts** are emissive glass plus crossed additive quads with
+`depthWrite={false}`. Real volumetrics are far too expensive.
 
-Content is externalized to JSON files in `public/data/`:
-- `cv.json`: Profile info, skills with expertise levels, projects
-- `viewpoints.json`: Camera positions/targets, hotspots (navigation points), info points (content triggers)
+## Key constraints
 
-Custom hooks load this data: `useNavigation()` and `useCVData()`.
+**`public/data/viewpoints.json` holds 81 hand-written world coordinates** — 20
+viewpoints, 38 hotspots, 23 infoPoints. It is a shadow schema of the geometry
+with no compile-time link to it. Moving room geometry silently desyncs all of
+them: no compile error, no failing test. Treat any change to room dimensions or
+layout as a change to that file too.
 
-### 3D Scene Structure
+Adding new objects is safe; moving existing geometry is not.
 
-Six themed areas in `src/components/canvas/areas/`:
-- CentralHall (main lobby with 5 doorways)
-- Library, Forge, Pipelines, Treasury, Observatory
+## Models
 
-Navigation via hotspots (clickable navigation points) and smooth camera transitions (1.2s).
+`npm run models` rebuilds every `.glb` from Blender source. See
+`assets/blender/CLAUDE.md` for the pipeline, conventions, and the gotchas that
+have already cost round trips.
 
-### Type Definitions
+`src/components/canvas/Prop.tsx` owns all `.glb` loading — per-prop Suspense,
+scene cloning, hover/click animation.
 
-Located in `src/types/`:
-- `game.ts`: Game state types
-- `navigation.ts`: Viewpoint, hotspot, InfoPoint types
-- `cv.ts`: CV content structure
+## Gotchas
 
-## Testing
-
-Tests use Vitest with jsdom environment and Testing Library React. Store tests are in `src/__tests__/gameStore.test.ts` with comprehensive coverage of all actions.
-
-Run single test file:
-```bash
-npx vitest run src/__tests__/gameStore.test.ts
-```
+- Anything tracking the mouse must use a ref and a direct DOM write, never React
+  state. A previous `Cursor.tsx` re-rendered on every `mousemove` and visibly
+  lagged the pointer, which read as the whole app being slow.
+- When framerate looks wrong, **check the renderer string before profiling**. A
+  browser fallen back to software rendering (SwiftShader, llvmpipe) runs this
+  scene at ~10fps no matter what. `App.tsx` logs `[gpu] …` in dev for this.
+- Speckled surfaces: z-fighting shimmers randomly as the camera moves, shadow
+  acne forms stable bands along the light direction. Different fixes.
