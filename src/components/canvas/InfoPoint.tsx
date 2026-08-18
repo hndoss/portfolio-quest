@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useGameStore } from '../../stores/gameStore'
 import type { InfoPointRef } from '../../types/navigation'
+import { beginHover, endHover } from './hoverCursor'
 
 interface InfoPointProps {
   infoPoint: InfoPointRef
@@ -44,12 +45,12 @@ export default function InfoPoint({ infoPoint }: InfoPointProps) {
 
   const handlePointerOver = () => {
     setHovered(true)
-    document.body.style.cursor = 'pointer'
+    beginHover()
   }
 
   const handlePointerOut = () => {
     setHovered(false)
-    document.body.style.cursor = 'none'
+    endHover()
   }
 
   const baseColor = '#00ff88'
