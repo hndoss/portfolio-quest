@@ -1,7 +1,5 @@
 import Prop from './Prop'
 
-const MODELS = '/models/props'
-
 /** Height of the desk's counter surface, from the Blender source. */
 const COUNTER_HEIGHT = 1.12
 
@@ -24,21 +22,21 @@ export default function WelcomeDesk({
 }) {
   return (
     <group position={position}>
-      <Prop url={`${MODELS}/welcome-desk.glb`} />
+      <Prop slug="welcome-desk" />
       <Prop
-        url={`${MODELS}/desk-bell.glb`}
+        slug="desk-bell"
         position={[-0.643, COUNTER_HEIGHT, 0.087]}
         rotation={[0, -0.227, 0]}
         onSelect={() => onSelect?.('bell')}
       />
       <Prop
-        url={`${MODELS}/quill-inkpot.glb`}
+        slug="quill-inkpot"
         position={[0.075, COUNTER_HEIGHT, 0.16]}
         rotation={[0, 0.026, 0]}
         onSelect={() => onSelect?.('quill')}
       />
       <Prop
-        url={`${MODELS}/hourglass.glb`}
+        slug="hourglass"
         position={[0.692, COUNTER_HEIGHT, 0.076]}
         rotation={[0, 0.244, 0]}
         onSelect={() => onSelect?.('hourglass')}
