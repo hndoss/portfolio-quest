@@ -30,7 +30,7 @@ import { BRASS_ON_TEAL, borderSvg, damaskSvg } from './ornament'
  * the Office and the compass inlay came out.
  *
  * The split here is deliberate. **Solid furniture is Blender**, loaded through
- * `Prop.tsx` from `assets/blender/great_hall.py` — chairs, tables, bench,
+ * `Prop.tsx` from the `assets/blender/great_hall/` scene package — chairs,
  * candlesticks, hearth irons. Turned and chamfered forms are what that pipeline
  * exists for, and building them from inline boxes reads as CAD.
  *
@@ -46,15 +46,6 @@ import { BRASS_ON_TEAL, borderSvg, damaskSvg } from './ornament'
  */
 
 const CLOTH = '#2b5559'
-
-const CHAIR_URL = '/models/props/hall-chair.glb'
-const SIDE_TABLE_URL = '/models/props/hall-side-table.glb'
-const REFECTORY_URL = '/models/props/refectory-table.glb'
-const BENCH_URL = '/models/props/hall-bench.glb'
-const CANDLESTICK_URL = '/models/props/candlestick.glb'
-const ANDIRON_URL = '/models/props/andiron.glb'
-const LOG_BASKET_URL = '/models/props/log-basket.glb'
-const FIRE_IRONS_URL = '/models/props/fire-irons.glb'
 
 export default function HallFurniture() {
   return (
@@ -109,10 +100,10 @@ function HearthGroup() {
   return (
     <group>
       {HEARTH_CHAIR_AT.map(({ position, yaw }) => (
-        <Prop key={position[0]} url={CHAIR_URL} position={position} rotation={[0, yaw, 0]} />
+        <Prop key={position[0]} slug="hall-chair" position={position} rotation={[0, yaw, 0]} />
       ))}
       <Prop
-        url={SIDE_TABLE_URL}
+        slug="hall-side-table"
         position={HEARTH_TABLE_AT}
         rotation={[0, HEARTH_TABLE_YAW, 0]}
       />
@@ -127,11 +118,11 @@ function RefectoryGroup() {
 
   return (
     <group>
-      <Prop url={REFECTORY_URL} position={REFECTORY_AT} />
-      <Prop url={BENCH_URL} position={BENCH_AT} />
+      <Prop slug="refectory-table" position={REFECTORY_AT} />
+      <Prop slug="hall-bench" position={BENCH_AT} />
 
       {CANDLESTICK_Z.map((z) => (
-        <Prop key={z} url={CANDLESTICK_URL} position={[tx, REFECTORY_TOP, z]} />
+        <Prop key={z} slug="candlestick" position={[tx, REFECTORY_TOP, z]} />
       ))}
 
       {/* Flames as emissive spheres above 1.0 with toneMapped off, so Bloom
@@ -157,10 +148,10 @@ function HearthDressing() {
   return (
     <group>
       {ANDIRON_AT.map((position) => (
-        <Prop key={position[0]} url={ANDIRON_URL} position={position} />
+        <Prop key={position[0]} slug="andiron" position={position} />
       ))}
-      <Prop url={LOG_BASKET_URL} position={LOG_BASKET_AT} rotation={[0, 0.4, 0]} />
-      <Prop url={FIRE_IRONS_URL} position={FIRE_IRONS_AT} rotation={[0, -0.5, 0]} />
+      <Prop slug="log-basket" position={LOG_BASKET_AT} rotation={[0, 0.4, 0]} />
+      <Prop slug="fire-irons" position={FIRE_IRONS_AT} rotation={[0, -0.5, 0]} />
     </group>
   )
 }

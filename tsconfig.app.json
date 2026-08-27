@@ -5,7 +5,9 @@
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "types": ["vite/client", "vitest/globals"],
+    /* "node" is for tests only: props.test.ts stats the .glb files on disk to
+       catch src/generated/props.ts drifting from what `npm run models` built. */
+    "types": ["vite/client", "vitest/globals", "node"],
     "skipLibCheck": true,
 
     /* Bundler mode */
