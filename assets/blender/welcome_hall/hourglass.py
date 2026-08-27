@@ -11,7 +11,7 @@ That rule is currently BROKEN and the shape has not been re-cut yet:
 
 So the hardware wins the silhouette and the waist never appears in outline.
 Fixing it means re-cutting BULB and the cap profile, which moves geometry — see
-the root CLAUDE.md warning about viewpoints.json before doing it. Once the
+the src/CLAUDE.md warning about viewpoints.json before doing it. Once the
 shape is fixed, add the envelope invariant to `checks()` so it cannot regress.
 """
 

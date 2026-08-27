@@ -7,7 +7,7 @@ import type { NavigationData } from '../types/navigation'
 /**
  * `data/areas.ts` and `public/data/viewpoints.json` are two hand-written tables
  * with no compile-time link, which is the same shape of problem CLAUDE.md
- * flags around the 81 hand-placed coordinates. A `defaultViewpoint` that no
+ * flags around the hand-placed viewpoint coordinates. A `defaultViewpoint` that no
  * longer resolves fails silently — the room is drawn on the map, you click it,
  * and nothing happens. These tests are the link.
  */

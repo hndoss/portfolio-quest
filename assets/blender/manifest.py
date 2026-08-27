@@ -8,7 +8,7 @@ to `_manifest/`, and this merges them.
 
 The point of the generated file is that a slug is a *type*. Renaming a prop in
 Blender then fails `tsc` at the call site instead of 404ing in the browser,
-which is the same class of silent desync the root CLAUDE.md warns about for
+which is the same class of silent desync src/CLAUDE.md warns about for
 viewpoints.json.
 """
 
