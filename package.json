@@ -11,7 +11,7 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "models": "blender --background --python assets/blender/welcome_hall.py && blender --background --python assets/blender/great_hall.py"
+    "models": "blender --background --python-exit-code 1 --python assets/blender/build.py -- welcome_hall && blender --background --python-exit-code 1 --python assets/blender/build.py -- great_hall && python3 assets/blender/manifest.py"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

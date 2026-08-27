@@ -11,10 +11,14 @@ Conventions enforced here so individual props never restate them:
   * every asset is grounded to z = 0, so React places it with no fudge offset
   * export is glTF 2.0 binary, +Y up, modifiers applied
   * base colours are LINEAR (see PALETTE)
+
+`Prop` is the contract every asset implements. See the class docstring.
 """
 
 import math
 import os
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
 
 import bmesh
 import bpy
@@ -22,12 +26,10 @@ from mathutils import Vector
 
 __all__ = [
     "PALETTE", "MATS", "reset", "material", "finish", "soften", "lathe",
-    "primitive", "join", "ground", "export_glb", "setup_preview",
-    "render_preview", "report", "to_three",
+    "primitive", "box", "rod", "join", "ground", "export_glb", "setup_preview",
+    "render_preview", "to_three", "Prop", "Check",
 ]
 
-
-# --- palette -----------------------------------------------------------------
 
 # Base colours are LINEAR, not sRGB. Linear 0.11 displays as sRGB ~0.37, so
 # naively pasting hex values here produces washed-out pastels. glTF stores
@@ -107,8 +109,6 @@ def soften(obj, width=0.018, segments=3):
     return obj
 
 
-# --- geometry ----------------------------------------------------------------
-
 def lathe(name, profile, segments=32, angle=360.0, closed=False):
     """Revolve a 2D silhouette of (radius, height) points around the Z axis.
 
@@ -147,6 +147,32 @@ def primitive(kind, **kwargs):
     return bpy.context.active_object
 
 
+def box(name, size, location, mat, smooth=False):
+    """An axis-aligned box of explicit metre dimensions, transform applied.
+
+    `primitive_cube_add` only takes a uniform `size`, so the shape comes from a
+    scale — which has to be baked before `join()`, or the joined result inherits
+    the active object's scale instead of each part's own.
+    """
+    obj = primitive("cube", size=1.0, location=location)
+    obj.name = name
+    obj.scale = size
+    bpy.ops.object.select_all(action="DESELECT")
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+    return finish(obj, mat, smooth=smooth)
+
+
+def rod(name, radius, length, location, rotation=(0, 0, 0), mat="dark_metal",
+        vertices=10):
+    obj = primitive("cylinder", vertices=vertices, radius=radius, depth=length,
+                    location=location)
+    obj.name = name
+    obj.rotation_euler = rotation
+    return finish(obj, mat)
+
+
 def join(parts, name):
     bpy.ops.object.select_all(action="DESELECT")
     for part in parts:
@@ -175,7 +201,89 @@ def ground(obj):
     return obj
 
 
-# --- export ------------------------------------------------------------------
+@dataclass(frozen=True)
+class Check:
+    """One invariant, evaluated against the built mesh."""
+
+    name: str
+    ok: bool
+    detail: str = ""
+
+
+class Prop(ABC):
+    """One exported asset.
+
+    A subclass sets `slug`, optionally `params`, and implements `build()`.
+    Everything the asset contract requires — grounding, export at the origin,
+    metrics, invariant checks — happens here, so that no prop restates it and
+    no prop can quietly opt out of a rule the runtime depends on.
+
+    `build()` returns raw geometry and must not call `ground()`.
+
+    `params` holds the prop's spec numbers. Keeping them in one named dict is
+    what makes a prop reviewable: `(0.032, 0.036)` in a profile list says
+    nothing, `waist_r` says what the number is for and what would break if it
+    moved. Treat it as read-only.
+
+    Failing checks do not abort the build. The preview still renders, so the
+    edit-rebuild-look loop keeps working on a half-finished prop, but
+    `build.py` exits non-zero afterwards so a violation cannot ship unnoticed.
+    """
+
+    slug = ""
+    params = {}
+
+    def __init__(self):
+        if not self.slug:
+            raise ValueError(f"{type(self).__name__} must set a slug")
+        self.obj = None
+
+    @abstractmethod
+    def build(self):
+        """Assemble and return the object."""
+
+    def checks(self, obj):
+        """Invariants for this prop. Override to add shape rules, and yield
+        from `super().checks(obj)` to keep the contract-level ones."""
+        lowest = min((obj.matrix_world @ v.co).z for v in obj.data.vertices)
+        yield Check("grounded", abs(lowest) < 1e-6, f"lowest vertex z={lowest:.6f}")
+
+    def make(self):
+        self.obj = ground(self.build())
+        return self.obj
+
+    def verify(self):
+        """Return the checks that failed, printing every result."""
+        failed = []
+        for check in self.checks(self.obj):
+            if not check.ok:
+                failed.append(check)
+                print(f"  FAIL {self.slug}/{check.name}: {check.detail}")
+        return failed
+
+    def export(self, out_dir):
+        """Write the .glb and return this prop's manifest entry."""
+        path = export_glb(self.obj, out_dir, self.slug)
+        dims = self.obj.dimensions
+
+        # Count the evaluated mesh: modifiers like the bevel are not baked into
+        # obj.data, so the raw count understates what actually ships.
+        evaluated = self.obj.evaluated_get(bpy.context.evaluated_depsgraph_get())
+        mesh = evaluated.to_mesh()
+        tris = sum(len(poly.vertices) - 2 for poly in mesh.polygons)
+        evaluated.to_mesh_clear()
+
+        bytes_ = os.path.getsize(path)
+        print(f"PROP {self.slug}: {dims.x:.3f} x {dims.y:.3f} x {dims.z:.3f}m "
+              f"tris={tris} {bytes_ / 1024:.1f}KB")
+        return {
+            "slug": self.slug,
+            "tris": tris,
+            "bytes": bytes_,
+            # three.js axes, so the runtime can use these without converting.
+            "size": [round(dims.x, 4), round(dims.z, 4), round(dims.y, 4)],
+        }
+
 
 def to_three(vec):
     """Blender (x, y, z) -> three.js (x, z, -y), matching the +Y-up export."""
@@ -200,24 +308,6 @@ def export_glb(obj, out_dir, slug):
     obj.location, obj.rotation_euler = keep_loc, keep_rot
     return path
 
-
-def report(obj, slug, path=None):
-    bbox = [obj.matrix_world @ Vector(c) for c in obj.bound_box]
-    size = [max(v[i] for v in bbox) - min(v[i] for v in bbox) for i in range(3)]
-    kb = f" {os.path.getsize(path) / 1024:.1f}KB" if path else ""
-
-    # Count the evaluated mesh, not obj.data — modifiers like the bevel are not
-    # baked into obj.data, so the raw count understates what actually ships.
-    evaluated = obj.evaluated_get(bpy.context.evaluated_depsgraph_get())
-    mesh = evaluated.to_mesh()
-    tris = sum(len(p.vertices) - 2 for p in mesh.polygons)
-    evaluated.to_mesh_clear()
-
-    print(f"PROP {slug}: {size[0]:.3f} x {size[1]:.3f} x {size[2]:.3f}m "
-          f"tris={tris}{kb}")
-
-
-# --- preview -----------------------------------------------------------------
 
 def setup_preview(camera_at, look_at, lens=45, key=380, fill=140):
     """Eye-level preview render. Always look at the result before shipping:

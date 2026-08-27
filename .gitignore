@@ -30,3 +30,6 @@ assets/blender/_preview.png
 
 # Playwright MCP screenshots
 .playwright-mcp/
+
+# Blender manifest fragments, merged into src/generated/props.ts
+assets/blender/_manifest/
